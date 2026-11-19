@@ -1,0 +1,235 @@
+/* Ported verbatim from the VOD Tabs CTV prototype (index.html, Section 2 — series tabs + sub nav).
+   Class names match the prototype so designs and code stay 1:1. */
+
+/* ============= SECTION 2 — SERIES TABS =============
+   Matched to the prompt-rail filter pill height (48px) so the two
+   rows feel like a consistent system. Numeric tabs collapse to a
+   compact 48×48 chip out of focus, and expand to "SERIES X" with the
+   same 24px padding as the filter pills when focused. */
+.series-tabs-shell {
+  position: relative;
+  z-index: 5;
+  padding: 0 0 20px 0;
+  height: 100px;
+  overflow: hidden;
+}
+.series-tabs-track {
+  position: absolute;
+  left: var(--tab-focus-x);
+  top: 16px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-04);   /* Figma Top Tabs gap 12 */
+  will-change: transform;
+  transition: transform 250ms cubic-bezier(.8,0,0,1);   /* FE cp_tab-group__list */
+}
+/* Tabs — h64 to match the hero CTA pills; radius 4 all round,
+   width hugs the label, padding 0 24, Call to Action/Bold label. */
+.series-tab {
+  flex: 0 0 auto;
+  height: 80px;   /* Figma Top Tabs / amended Tabs: h80 */
+  min-height: 80px;
+  max-height: 80px;
+  min-width: 80px;
+  width: auto;
+  padding: 0 var(--spacing-06);
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: none;
+  background: transparent;   /* inactive tabs: 0% background */
+  color: var(--text);
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  opacity: 1;
+  position: relative;
+  transition: background 600ms cubic-bezier(0.33, 0, 0.2, 1),
+              color 600ms cubic-bezier(0.33, 0, 0.2, 1),
+              opacity 180ms ease;
+}
+/* Active-tab underline — drawn as a 2px lime accent bar flush to the
+   bottom edge of the tab. Hidden by default, revealed for .active. */
+.series-tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--brand-primary);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 600ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+.series-tab.active::after { transform: scaleX(1); }
+
+.series-tab.numeric {
+  width: auto;
+  min-width: 80px;
+  padding: 0 var(--spacing-06);
+  /* Animate the width swap so the tab grows smoothly into "SERIES X". */
+  /* Motion token 1 — duration-01 (250ms) with easing-03. */
+  transition: background 250ms cubic-bezier(0.4,0,0.2,1),
+              color 250ms cubic-bezier(0.4,0,0.2,1),
+              opacity 250ms cubic-bezier(0.4,0,0.2,1),
+              width 250ms cubic-bezier(0.4,0,0.2,1),
+              min-width 250ms cubic-bezier(0.4,0,0.2,1),
+              padding 250ms cubic-bezier(0.4,0,0.2,1);
+}
+/* Numeric tabs expand to fit the "SERIES X" label whenever they
+   carry the .expanded class. The renderer applies that class to the
+   focused tab and to the active tab — but it strips it from the
+   active tab while the user is focused on a different (non-active)
+   tab, so the active label compactly collapses to just its number. */
+.series-tab.numeric.expanded {
+  width: auto;
+  min-width: 80px;
+  padding: 0 var(--spacing-06);
+}
+/* Tabs expand only while the tabs row owns focus; they collapse back
+   to compact chips (motion token 1) as focus moves away. */
+/* Collapse only the compact number chips — a tab showing the full
+   "SERIES X" label stays expanded to fit it. Out-of-focus, non-active
+   tabs hold at 80px. */
+.app:not(.tabs-active) .series-tab.numeric:not(.expanded):not(.active) {
+  width: 80px;
+  min-width: 80px;
+  padding: 0;
+  overflow: hidden;
+}
+/* Upcoming tab — Figma SERIES NAV ADJUSTED GRID: sparkle icon + next
+   series number. Unfocused: white 2% fill, gradient icon + gradient number.
+   Focused: white fill, #102533 icon + "SERIES N" label. */
+.series-tab.upcoming-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 24px;
+  background: transparent;
+  opacity: 1;
+  /* Same expand/collapse motion as the numeric chips — motion token 1. */
+  transition: background 250ms cubic-bezier(0.4,0,0.2,1),
+              color 250ms cubic-bezier(0.4,0,0.2,1),
+              opacity 250ms cubic-bezier(0.4,0,0.2,1),
+              width 250ms cubic-bezier(0.4,0,0.2,1),
+              min-width 250ms cubic-bezier(0.4,0,0.2,1),
+              padding 250ms cubic-bezier(0.4,0,0.2,1);
+}
+.series-tab.upcoming-tab .up-spark { flex-shrink: 0; display: block; }
+.series-tab.upcoming-tab .up-spark path { fill: url(#upSparkGrad); }
+/* Figma UPCOMING TAB: gradient icon, white label (Inverse when focused). */
+.series-tab.upcoming-tab:not(.focused) .series-tab-label { color: var(--text-primary); }
+.series-tab.upcoming-tab.focused { background: #ffffff; }
+.series-tab.upcoming-tab.focused .up-spark path { fill: #102533; }
+.series-tab.upcoming-tab.focused .series-tab-label { color: #102533; }
+.series-tab.focused {
+  /* Focused tab = ITVX/Background/Inverse fill, ITVX/Text/Inverse label. */
+  opacity: 1;
+  background: var(--bg-inverse);
+  color: var(--text-inverse);
+  border-radius: 4px;
+}
+/* AI sparkle inside the Discover tab — same mark as the prompt-rail
+   header, sized to sit inline before the label. */
+.series-tab-ai {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  margin-right: 8px;
+  color: currentColor;
+}
+.series-tab-label { display: inline-block; }
+/* ===== Series dropdown (replaces numeric series tabs) ===== */
+.series-tab.dropdown-trigger { gap: var(--spacing-05); justify-content: flex-start; margin-right: 8px; }
+/* 20px between the dropdown trigger and the tabs to its right
+   (track gap 12 + 8). */
+/* Chevron sits on the RIGHT of the label. */
+.series-tab.dropdown-trigger .dd-chevron { order: 2; }
+.dd-chevron { width: 20px; height: 20px; flex-shrink: 0;
+  transition: transform 300ms cubic-bezier(0.4,0,0.2,1); }
+.series-tab.dropdown-trigger.open .dd-chevron { transform: rotate(180deg); }
+.series-tabs-shell.dd-open { overflow: visible; z-index: 60; height: 190px; }
+/* Sub nav open: shell grows so the episode rail sits BELOW the sub nav
+   in flow (tabs bottom 90 + 20 gap + 60 chips + 20 pad). */
+/* Trigger never shows the lime underline. */
+.series-tab.dropdown-trigger::after { transform: scaleX(0) !important; }
+/* Inactive (unfocused) trigger: 5% white fill. */
+.series-tab.dropdown-trigger:not(.focused) { background: rgba(255,255,255,0.05); }
+/* Sub nav — a horizontal row of collapsed series tabs (ctvcomponents
+   "amended Tabs": 80px numeric chips that expand to "SERIES X" when
+   focused) revealed beneath the tab row. */
+.series-dd-menu {
+  position: absolute;
+  top: 116px;   /* tab row bottom (16 track + 80 tab) + 20px gap */
+  left: 0;
+  right: 0;
+  z-index: 60;
+  display: none;
+  /* Previous chips stay visible in the left margin as the track slides. */
+  overflow: visible;
+}
+.series-dd-menu.open { display: block; }
+.series-dd-track {
+  display: flex; flex-direction: row; gap: 8px;
+  transition: transform 300ms cubic-bezier(0.33,0,0.2,1);
+}
+.series-dd-item {
+  flex: 0 0 auto;
+  height: 60px; min-height: 60px; max-height: 60px;
+  min-width: 60px; width: 60px;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  font-size: 20px; font-weight: 700; line-height: 1.3;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  display: flex; align-items: center; justify-content: center;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  transition: background 300ms cubic-bezier(0.33,0,0.2,1),
+              color 300ms cubic-bezier(0.33,0,0.2,1),
+              width 250ms cubic-bezier(0.4,0,0.2,1);
+}
+/* Focused / active chips expand to the full "SERIES X" label. */
+.series-dd-item.expanded { width: auto; padding: 0 var(--spacing-06); }
+.series-dd-item.focused { background: #ffffff; color: #102533; }
+/* Active series row — same lime underline as the tabs. */
+.series-dd-item.active::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+  background: var(--brand-primary);
+}
+.series-tab.active {
+  background: transparent;   /* unfocused/active tabs: 0% background */
+  color: #ffffff;
+  border-color: #ffffff;
+  opacity: 1;
+}
+/* Collapse only the compact number chips — a tab showing the full
+   "SERIES X" label stays expanded to fit it. Out-of-focus, non-active
+   tabs hold at 80px. */
+.app:not(.tabs-active) .series-tab.numeric:not(.expanded):not(.active) {
+  width: 80px;
+  min-width: 80px;
+  padding: 0;
+  overflow: hidden;
+}
+.series-tab.focused {
+  background: #ffffff;
+  color: var(--bg-secondary);
+  border-color: #ffffff;
+  opacity: 1;
+}
+

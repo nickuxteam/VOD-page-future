@@ -1,0 +1,212 @@
+/* Ported verbatim from the VOD Tabs CTV prototype (index.html, Section 2.5 — episode rail).
+   Class names match the prototype so designs and code stay 1:1. */
+
+/* ============= SECTION 2.5 — EPISODE RAIL =============
+   Landscape tiles grouped by the active series tab. Reuses the same
+   focus pattern as the portrait prompt rail (focused tile locks to
+   slot 0, others slide left under it) — only the tile shape differs. */
+.episode-rail-shell {
+  position: relative;
+  z-index: 5;
+  padding: 16px 0 0 0;   /* 16px between the tabs and the episode tiles */
+}
+.episode-rail-header {
+  display: none;   /* series title removed — tabs carry it */
+  padding: 0 112px 14px 112px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0;
+}
+.episode-rail-clip-shell {
+  position: relative;
+  height: calc(var(--ep-tile-h) + 200px); /* tile + 20 + title 31 + 8 + 3-line desc 93 + 20 + tags 28 */
+  overflow: visible;
+}
+.episode-rail-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.episode-rail-track {
+  position: absolute;
+  left: var(--rail-focus-x);
+  top: 0;
+  height: 100%;
+  display: flex;
+  gap: 18px;   /* Figma Episode slider: 486 tiles at 504px pitch */
+  will-change: transform;
+  transition: transform 500ms cubic-bezier(.6,0,0,1);   /* FE cp_tile-slider-ctv--standard */
+}
+.episode-tile-wrap {
+  flex: 0 0 var(--ep-tile-w);
+  width: var(--ep-tile-w);
+  display: flex;
+  flex-direction: column;
+}
+.episode-tile {
+  width: 100%;
+  height: var(--ep-tile-h);
+  border-radius: var(--tile-radius);
+  background-color: var(--tile-default);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 180ms ease, background-color 220ms ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.episode-tile.loading::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+    transparent 0%, rgba(255,255,255,0.07) 50%, transparent 100%);
+  animation: shimmer 1.6s infinite;
+}
+.episode-tile.focused {
+  background-color: var(--tile-focused);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+/* Continue-watching dressing on a single episode tile: an accent
+   badge top-left plus a progress strip flush to the bottom edge. */
+.episode-badge {
+  position: absolute;
+  top: 10px; left: 10px;
+  z-index: 2;
+  padding: 4px 8px;
+  background: var(--accent-primary);
+  color: var(--bg-secondary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 3px;
+}
+.episode-progress {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 6px;
+  background: rgba(255,255,255,0.25);
+  z-index: 2;
+}
+.episode-progress::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 35%;
+  background: var(--accent-primary);
+}
+.episode-title {
+  margin-top: 20px;   /* Figma: image → Description + Tags gap 20 */
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  font-size: 24px;   /* Body/Bold */
+  line-height: 1.3;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0;
+  /* Truncate to a single line, never wider than the tile. */
+  width: 100%;
+  max-width: var(--ep-tile-w);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.episode-desc {
+  margin-top: 8px;
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  font-size: 24px;   /* Body/Regular, 3 lines (h93) */
+  font-weight: 400;
+  line-height: 1.3;
+  height: 93px;
+  color: var(--text-secondary);
+  width: 100%;
+  max-width: var(--ep-tile-w);
+  /* Capped at 90 characters in JS; this clamp keeps it tidy if a long
+     fallback ever sneaks in. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* Figma "Tags + Duration + Date": accessibility tags, then 20/500 #DFE1E3 meta. */
+.episode-meta {
+  margin-top: 20px; height: 28px;
+  display: flex; align-items: center; gap: var(--spacing-04);
+  font-family: "F37 Zagma", sans-serif; font-size: 20px; font-weight: 500; line-height: 1.3;
+  color: var(--text-secondary); white-space: nowrap;
+}
+.episode-meta .ep-acc { display: flex; gap: var(--spacing-02); height: 28px; }
+.episode-meta .ep-acc .pill-access { height: 28px; }
+/* Episode tile tags — bottom-left short S:E + optional Latest tag. */
+.ep-tags { position: absolute; left: 12px; bottom: 12px; display: flex; gap: 8px; z-index: 2; }
+.episode-tile.live .ep-tags { bottom: 30px; }   /* tags sit above the 6px progress + 12px inset */
+.ep-tag.live { background: var(--accent-tertiary, #80FFB5); color: var(--text-inverse, #102C3D); font-weight: 500; }
+/* Standard tag variant — ITVX/Accents/Primary (ctvcomponents). */
+.ep-tag.latest { background: var(--brand-primary, #DEEB52); color: var(--text-inverse, #102C3D); font-weight: 500; }
+/* Figma "Tile Overlay" (Style=Half) on every episode tile. */
+.episode-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 50%);
+  z-index: 1;
+}
+.ep-progress {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  height: 6px;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 2;
+  background: rgba(255,255,255,0.5);   /* Figma Progress Indicator track: white @ opacity-03 */
+}
+.ep-progress i {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 62%;
+  background: #FFFFFF;
+  border-radius: 10px;
+}
+/* Live tiles keep the mint (ITVX/Accents/Tertiary) bar. */
+.episode-tile.live-air .ep-progress i { background: var(--accent-tertiary, #80FFB5); }
+.ep-tag {
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--spacing-02);   /* Figma _Timestamp: px4, r4, #102C3D, Tag/Regular */
+  border-radius: var(--radius-02);
+  background: var(--bg-primary);
+  color: #ffffff;
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.episode-tile-focus-ring {
+  position: absolute;
+  top: -3px;
+  left: calc(var(--rail-focus-x) - 3px);
+  width: calc(var(--ep-tile-w) + 6px);
+  height: calc(var(--ep-tile-h) + 6px);
+  border: 3px solid #ffffff;
+  border-radius: calc(var(--tile-radius) + 3px);
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+.episode-rail-clip-shell.has-focus .episode-tile-focus-ring { opacity: 1; }
+/* While an episode tile owns focus, its siblings dim to 90%. */
+.episode-rail-clip-shell.has-focus .episode-tile-wrap { opacity: 0.8; }
+.episode-rail-clip-shell.has-focus .episode-tile-wrap:has(.episode-tile.focused) { opacity: 1; }
+
+
+/* Code-only: "•" between length and air date in the meta line. */
+.episode-meta .ep-dot { margin: 0 -4px; }

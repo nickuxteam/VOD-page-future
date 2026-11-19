@@ -1,0 +1,364 @@
+/* Ported verbatim from the VOD Tabs CTV prototype (index.html, Section 1 — episode hero meta).
+   Class names match the prototype so designs and code stay 1:1. */
+
+/* ============= SECTION 1 — EPISODE HERO ============= */
+/* Figma "EPISODE HERO META & LOGO" — column gap 32, padding 0 110 240,
+   bottom-aligned; meta area is a 570 / 995 two-column row (gap 56) with
+   27px stacks inside each column. */
+.vod-hero {
+  position: relative;
+  z-index: 5;
+  padding: 0 150px 0 112px;   /* Figma Meta Area: pl112 pr150 */
+  /* Content bottom sits 240px above the page bottom (1080 − 240 = 840);
+     negative margin keeps the sections below at their original offsets. */
+  height: 840px;
+  margin-bottom: 40px;   /* series nav sits 40px below the secondary buttons */
+  display: grid;
+  /* Figma Meta Area: 610 CTA column, 56 gap, 990 description column;
+     20px stack gap between title, tags/straplines row and buttons row. */
+  grid-template-columns: max-content 990px;
+  grid-auto-rows: min-content;
+  column-gap: 56px;   /* exactly 56px between the CTA tower and the description column */
+  row-gap: 20px;
+  align-content: end;
+  justify-items: start;
+}
+/* itvx logo lockup — sits in the top-left corner of the episode hero,
+   above the title and metadata. Sized to read clearly without stealing
+   focus from the programme logo. */
+/* Floating itvX logo — 110px from the left, 76px from the top. */
+.itvx-float {
+  position: absolute;
+  left: 112px;
+  top: 56px;
+  width: 96px;
+  height: auto;
+  display: block;
+  z-index: 7;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5));
+}
+.app.itvx-off .itvx-float { display: none; }
+/* Episode view (focus below the hero) hides the itvX logo. */
+.app:not(.hero-focused) .itvx-float { display: none; }
+/* Partner logo — floats right, 110px inset, vertically centred on itvX. */
+.partner-float {
+  position: absolute;
+  right: 112px;
+  top: 56px;
+  height: 40px;
+  width: auto;
+  display: block;
+  z-index: 7;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5));
+}
+.partner-float { display: none; }
+.app.partner-on .partner-float { display: block; }
+
+/* ===== GUIDANCE MESSAGE (Figma 3 NOV updates — feature flag options) =====
+   Off by default; .app.guidance-<mode> picks one placement. */
+.guid-g {
+  width: 22px; height: 22px; flex: 0 0 22px; border-radius: 50%;
+  background: #fff; color: var(--text-inverse);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: "F37 Zagma", sans-serif; font-size: 16px; font-weight: 700; line-height: 1;
+}
+.guidance-chip, .guidance-tr, .guidance-below-logo, .guidance-above-desc { display: none; }
+/* 3rd strapline: Strapline 2 shape, white glow (Strapline 2: TEST / Guidance generic). */
+.app.guidance-strap3 .strap-chip.guidance-chip,
+.app.guidance-strap3about .strap-chip.guidance-chip { display: inline-flex; }
+.strap-chip.guidance-chip {
+  display: none;
+  gap: 10px; padding: 0 12px; border: none;
+  background: rgba(16,37,51,0.2);
+  box-shadow: 0 0 20px 0 rgba(255,255,255,0.3);
+  color: var(--text-primary); font-weight: 700;
+}
+/* Full warning — top right: same chip, right-aligned with the itvX logo row. */
+.guidance-tr {
+  position: absolute; z-index: 6; top: 66px; right: 56px;
+  align-items: center; justify-content: flex-end; gap: 10px; padding: 12px;
+  border-radius: 8px; background: rgba(16,37,51,0.2);
+  box-shadow: 0 0 20px 0 rgba(255,255,255,0.3);
+  font-family: "F37 Zagma", sans-serif; font-size: 20px; font-weight: 700; line-height: 1.3;
+  color: var(--text-primary); white-space: nowrap;
+  transition: opacity 320ms cubic-bezier(.2,.8,.2,1);
+}
+.app.guidance-topright .guidance-tr { display: inline-flex; }
+.app.series-focus .guidance-tr, .app.discover-focus .guidance-tr { opacity: 0; pointer-events: none; }
+/* Full warning — below logo: no fill, py12, soft white glow; own row under the title. */
+.guidance-below-logo {
+  grid-column: 1 / -1; grid-row: 3;
+  align-items: center; gap: 10px; padding: 12px 0;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+  font-family: "F37 Zagma", sans-serif; font-size: 20px; font-weight: 700; line-height: 1.3;
+  color: var(--text-primary); white-space: nowrap;
+}
+.app.guidance-belowlogo .guidance-below-logo { display: flex; }
+.app.guidance-belowlogo .vod-hero-pills { grid-row: 4; }
+.app.guidance-belowlogo .vod-hero-desc-block { grid-row: 4 / span 2; }
+.app.guidance-belowlogo .vod-cta-row { grid-row: 5; }
+.app.stacked-hero.guidance-belowlogo .vod-hero-desc-block { grid-row: 5; }
+.app.stacked-hero.guidance-belowlogo .vod-cta-row { grid-row: 6; }
+.app.series-focus .guidance-below-logo { display: none !important; }
+/* Full warning — above description: Small Body/Bold, white, Text Drop, one line. */
+.guidance-above-desc {
+  margin: 0 0 -13px; max-width: 990px;
+  font-family: "F37 Zagma", sans-serif; font-size: 20px; font-weight: 700; line-height: 1.3;
+  color: var(--text-primary); text-shadow: 1px 4px 4px rgba(0,0,0,0.5);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.app.guidance-abovedesc .guidance-above-desc { display: block; }
+.vod-hero-itvx-logo {
+  position: relative;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  width: 84px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5));
+  z-index: 6;
+  pointer-events: none;
+}
+/* Title Logo — Figma 550×200 block, row 2 of the hero grid. */
+.vod-hero-title {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  width: 550px;
+  height: 200px;
+  margin: 0;
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.0;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: flex-end;   /* logos always bottom-align in the 550×200 slot */
+}
+/* SVG logo lockup that replaces the plain "Broadchurch" text title.
+   Heavy bold uppercase, tightly spaced, sized to read as a programme
+   logo against the hero backdrop. */
+.vod-hero-logo {
+  width: 550px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 2px 20px rgba(0,0,0,0.6));
+}
+/* CTV Metadata line — left column, 610 wide, h28 centred in the 34px
+   TAGS & STRAPLINES row, gap 12. */
+.vod-hero-pills {
+  grid-column: 1;
+  grid-row: 3;
+  width: 610px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-04);
+  margin-bottom: 0;
+}
+/* Tag — Figma Type=Standard: h28, radius 4, padding 0 4, 20px / 500 /
+   140% uppercase, ITVX/Text/Inverse on accent fill. */
+.pill-exclusive {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 28px;
+  padding: 0 var(--spacing-02);
+  background: var(--accent-primary);
+  color: var(--text-inverse);
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+/* Figma "1920 accessibility icons" — group gap 4; each tag h20,
+   radius 2, 1px white inset border, 50% #102533 fill, label
+   14.886px / 700 / 130% / 4% caps. */
+.pill-access-group {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-02);
+  height: 28px;   /* matches tag height */
+}
+.pill-access {
+  position: relative;
+  box-shadow: inset 0 0 0 1px #ffffff;
+  background: rgba(16,37,51,0.5);
+  color: #ffffff;
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  font-size: 14.886px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0 var(--spacing-02);
+  border-radius: 2px;
+  height: 28px;   /* matches tag height */
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+/* Age rating (films) — same pill, outline in ITVX/Functional/Warning. */
+.pill-access.rating { box-shadow: inset 0 0 0 1px var(--functional-warning, #F09345); width: auto; padding: 0 var(--spacing-02); }
+.pill-access.s { width: 18px; }
+.pill-access.bsl { width: 37px; }
+.pill-access.ad { width: 46px; }
+/* Accessibility tags use the supplied artwork — the pill chrome and
+   text are dropped in favour of the image. */
+.pill-access.img {
+  box-shadow: none; background: none; padding: 0; border-radius: 0;
+  text-indent: -9999px;
+  background-repeat: no-repeat; background-position: center; background-size: contain;
+}
+/* Meta line text — Figma "1920 meta line": F37 Zagma 14.886px / 500 /
+   130% / 4% tracking, uppercase, #DFE1E3; items gap 8. */
+/* Figma "1920 meta line" (2026-11): Small Body/Regular 20 / 500 / 130%,
+   sentence case, no tracking, #DFE1E3, Text Drop shadow; "• 3 Series • 30 mins". */
+.pill-meta {
+  font-family: "F37 Zagma", sans-serif;
+  color: var(--text-secondary);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-transform: none;
+  text-shadow: 1px 4px 2px rgba(0,0,0,0.5);
+  margin-left: 0;
+}
+.pill-bullet {
+  color: var(--text-secondary);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-shadow: 1px 4px 2px rgba(0,0,0,0.5);
+  margin: 0 -4px;   /* 12px flex gap → 8px either side of the bullet */
+}
+/* Figma "Description" — 24px / 500 / 130%, 990px wide, 3 lines (h93). */
+.vod-hero-desc {
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  text-shadow: 1px 4px 4px rgba(0,0,0,0.5);
+  font-size: 24px;
+  font-weight: 400;   /* Figma Body/Regular */
+  line-height: 1.3;
+  color: var(--text-primary);
+  width: 990px;
+  max-width: 100%;
+  /* FE behaviour: description__text max-height 7.8rem → 4 lines, then ellipsis. */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+/* Subtitle line above the description: small flame ("heat") icon
+   plus a "We think you will love this" recommendation tag. Sits in
+   the natural flow above the description in the default hero, and
+   stacks above it inside the right column in the alt hero. */
+/* Figma "Editorial subtitle" — social-proofing lines, h26, gap 32;
+   label 20px / 700 / 130% / 6% caps in ITVX/Text/Interactive. */
+/* Figma "SOCIAL PROOFING LINE" — h34 chips, radius 8, 12px padding,
+   10px gap, translucent #102533 fill with a coloured glow. Label is
+   F37 Zagma 700 / 20px / 130% in white. */
+.vod-hero-subtitle {
+  height: 34px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 20px;   /* Figma Hero Strapline's: 20 between chips */
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #ffffff;
+  margin-bottom: 0;
+}
+.strap-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(16,37,51,0.2);
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #ffffff;
+  border: 1px solid rgba(223,225,227,0.2);
+  /* Trending / generic variants glow brand-yellow. */
+  box-shadow: 0 0 20px 0 rgba(222,235,82,0.3);
+}
+/* Editorial 2 glows the coming-soon mint green. */
+/* Figma Strapline 1 (Perso): no stroke, 12px padding, yellow glow. */
+#heroStrap1Wrap.strap-chip { border: none; }
+/* Figma Strapline 2 (PreTX & Release): 1px stroke, 4/12 padding, mint glow 20%. */
+#heroStrapline.strap-chip { box-shadow: 0 0 20px 0 rgba(128,255,181,0.2); padding: 4px 12px; }
+.vod-hero-subtitle .heat-icon {
+  width: 21px;
+  height: 24px;
+  flex: 0 0 auto;
+  color: #DEEB52;
+}
+#heroStrapline .heat-icon { color: #FF578C; }
+/* Supplied trending / calendar artwork keeps its own colours. */
+img.heat-icon { object-fit: contain; }
+#heroStraplineCal.heat-icon { width: 20px; height: 20px; }
+/* Coming-soon messages: same gradient as the calendar icon, clipped to text. */
+.grad-text {
+  background: linear-gradient(227.79deg, rgba(51,221,223,0.95) 4.34%, rgba(128,255,181,0.95) 49.85%, rgba(244,252,165,0.95) 97.16%);   /* Figma Grad */
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; text-shadow: none;
+}
+/* Three plain-text genre / sub-genre / mood keywords sitting below
+   the description block. Plain regular weight so they read as
+   metadata rather than calls to action. */
+/* Right column of the meta area — Figma stack: editorial subtitle,
+   then description + genre tags (inner gap 12), column gap 27. */
+.vod-hero-desc-block {
+  grid-column: 2;
+  grid-row: 3 / span 2;
+  width: 990px;
+  max-width: 990px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Straplines sit in the 34px tags row; 20px stack gap puts the
+     description's top level with the primary CTA (Figma Meta Area). */
+  justify-content: flex-start;
+  gap: 20px;
+}
+/* Description → keywords: 24px (Figma "Decription with Keywords"). */
+.vod-hero-desc-block .vod-hero-desc { margin-top: 0; margin-bottom: 4px; }
+/* Figma "GENRE MOOD & CAST TAGS 2/5" — h28, gap 12, 20px / 500 / 140%
+   uppercase, #DFE1E3, • separators as their own items. */
+.vod-hero-keywords {
+  height: 26px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;   /* keywords always sit on one line */
+  overflow: hidden;
+  white-space: nowrap;
+  gap: var(--spacing-04);
+  margin-top: 0;
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-secondary);
+  text-shadow: 1px 4px 4px rgba(0,0,0,0.5);
+  text-transform: none;   /* Figma: "Category • Sub Genre • Mood" */
+  letter-spacing: 0;
+}
+.vod-hero-keyword:not(:last-child)::after {
+  content: '\2022';
+  margin-left: var(--spacing-04);
+}
+/* No orphan dot after the last VISIBLE keyword (trailing spans may be
+   display:none, which :last-child can't see). */
+.vod-hero-keyword.kw-last::after { content: none; }
+

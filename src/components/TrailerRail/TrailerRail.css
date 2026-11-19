@@ -1,0 +1,73 @@
+/* Ported verbatim from the VOD Tabs CTV prototype (index.html, trailers section).
+   Class names match the prototype so designs and code stay 1:1. */
+
+/* ============= TRAILERS SECTION ============= */
+.trailer-shell {
+  position: relative;
+  z-index: 5;
+  padding: 16px 112px 24px;   /* 16px below tabs — matches the episode slider */
+  display: none;
+}
+.trailer-shell.show { display: block; }
+.trailer-shell, .about-shell { transition: margin 320ms cubic-bezier(.2,.8,.2,1); }
+.trailer-tile {
+  position: relative;
+  width: 720px;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-raised, #163f59);
+  border: 3px solid transparent;
+  box-sizing: border-box;
+  transition: border-color 140ms ease;
+}
+.trailer-tile.focused { border-color: #ffffff; }
+/* Trailer rail — episode-slider layout: one wrap per series trailer,
+   same tile dims, gap and slide motion as the episode rail. */
+.trailer-rail {
+  display: flex;
+  gap: var(--rail-gap);
+  will-change: transform;
+  transition: transform 380ms cubic-bezier(.2,.8,.2,1);
+}
+.trailer-tile-wrap {
+  flex: 0 0 var(--ep-tile-w);
+  width: var(--ep-tile-w);
+  display: flex;
+  flex-direction: column;
+}
+.trailer-rail .trailer-tile {
+  width: 100%;
+  height: var(--ep-tile-h);
+  aspect-ratio: auto;
+}
+.trailer-rail .trailer-play-badge { width: 56px; height: 56px; }
+/* Siblings dim to 80% while one trailer tile owns focus — same as episodes. */
+.trailer-rail.has-focus .trailer-tile-wrap { opacity: 0.8; }
+.trailer-rail.has-focus .trailer-tile-wrap:has(.trailer-tile.focused) { opacity: 1; }
+.trailer-tile-still {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.trailer-play-badge { width: 72px; height: 72px; }
+.trailer-tile iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.trailer-tile.playing iframe { display: block; }
+.trailer-tile.playing .trailer-tile-still { display: none; }
+.trailer-tile-label {
+  margin-top: 12px;
+  font-family: "F37 Zagma", "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
+}

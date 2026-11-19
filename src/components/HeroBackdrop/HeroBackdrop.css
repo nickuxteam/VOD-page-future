@@ -1,0 +1,64 @@
+/* Ported verbatim from the VOD Tabs CTV prototype (index.html, hero backdrop).
+   Class names match the prototype so designs and code stay 1:1. */
+
+/* ============= HERO BACKDROP — own full-screen layer (1920×1080),
+   always behind the metadata/components; dims to 20% in tab view. */
+.hero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1080px;
+  z-index: 0;
+  background-image: none;
+  background-size: cover;
+  background-position: center top;   /* align backdrop to the top of the screen */
+  background-repeat: no-repeat;
+  overflow: hidden;
+  transition: background-image 600ms ease, opacity 600ms ease;
+  opacity: 0.9;
+}
+.hero.show { opacity: 0.9; }
+/* Auto-playing trailer that fades in over the still backdrop after a
+   5s dwell. Covers the same cropped 800px band; fades back out when
+   the hero collapses (series-focus / discover-focus) so it doesn't
+   keep streaming behind hidden content. */
+.hero-trailer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  /* Full 1920px-wide 16:9 frame aligned to the top of the screen,
+     aspect ratio maintained (1920×1080 fills the viewport). */
+  width: 1920px;
+  height: 1080px;
+  transform: translateX(-50%);
+  border: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1200ms ease;
+}
+.hero-trailer.playing { opacity: 1; }
+video.hero-trailer { object-fit: cover; }
+.hero.trailer-active {
+  /* Drop the still backdrop once the trailer has faded in. */
+  background-image: none !important;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Ensure the gradient overlay sits above the trailer so the title /
+     CTAs stay legible. */
+  z-index: 1;
+  /* Gradient starts at the top of the programme logo (y≈458), then
+     0% → 0 opacity, 40% of the band → 70%, bottom → 100%. */
+  background: linear-gradient(180deg,
+    rgba(16,44,61,0) 0px, rgba(16,44,61,0) 458px,
+    rgba(16,44,61,0.7) calc(418px + (100% - 458px) * 0.4), rgb(16,44,61) 100%);
+}
+/* Stacked hero bottom gradient — 0% → 0, 50% → 70%, 100% → 100%. */
+.app.stacked-hero .hero::after {
+  background: linear-gradient(180deg,
+    rgba(16,44,61,0) 0%,
+    rgba(16,44,61,0.7) 50%, rgb(16,44,61) 100%);
+}

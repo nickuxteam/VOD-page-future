@@ -1,0 +1,171 @@
+/* Ported verbatim from the VOD Tabs CTV prototype (index.html, lines 25-171).
+   Class names match the prototype so designs and code stay 1:1. */
+
+/* ================================================================
+   SHARED CSS — copied verbatim from index.html so the VOD page and
+   the Prompt Rail page render with identical typography, colours,
+   focus rings, tile sizing, etc. Anything new for the VOD page is
+   appended in a "VOD additions" block below.
+   ================================================================ */
+
+/* F37 Zagma — uploaded brand typeface */
+@font-face {
+  font-family: "F37 Zagma";
+  src: url("/fonts/F37Zagma-Variable.ttf") format("truetype-variations"),
+       url("/fonts/F37Zagma-Regular.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "F37 Zagma";
+  src: url("/fonts/F37Zagma-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "F37 Zagma";
+  src: url("/fonts/F37Zagma-Book.ttf") format("truetype");
+  font-weight: 350;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "F37 Zagma";
+  src: url("/fonts/F37Zagma-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "F37 Zagma";
+  src: url("/fonts/F37Zagma-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "F37 Zagma Mono";
+  src: url("/fonts/F37ZagmaMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ITVX design tokens — extracted from the Figma file */
+  --bg-primary: #102C3D;        /* ITVX Background/Primary */
+  --bg-secondary: #102533;      /* ITVX Background/Secondary — page + hero bg */
+  --bg-raised: #163f59;         /* code-only: raised panels (no Figma variable) */
+  --bg-elevated: #1a4866;
+  --tile-default: #1b587f;
+  --tile-focused: #1e6998;
+  --accent-tertiary: #80FFB5;   /* ITVX Accents/Tertiary — live tags + progress */
+  --accent-primary: #33DDDF;    /* ITVX Accents/Primary */
+  --accent-secondary: #8080FF;  /* ITVX Accents/Secondary */
+  --brand-primary: #DEEB52;     /* ITVX Brand/Primary */
+  --brand-secondary: #102C3D;   /* ITVX Brand/Secondary */
+  --bg-inverse: #FFFFFF;        /* ITVX Background/Inverse */
+  --bg-tertiary: #004159;       /* ITVX Background/Tertiary */
+  --text-inverse: #102C3D;      /* ITVX Text/Inverse */
+  --text-interactive: #E8F753;  /* ITVX Text/Interactive */
+  --neutral-300: #AAC0C8;
+  --neutral-400: #558090;
+  --neutral-500: #2A6175;
+  --functional-warning: #F09345;
+  --functional-error: #FF576D;
+  /* Spacing tokens */
+  --spacing-01: 2px;  --spacing-02: 4px;  --spacing-03: 8px;
+  --spacing-04: 12px; --spacing-05: 16px; --spacing-06: 24px;
+  --spacing-07: 32px; --spacing-08: 40px; --spacing-09: 56px;
+  --spacing-05-5: 20px; --spacing-10: 72px; --spacing-11: 104px;
+  /* Radius + opacity tokens (Figma radius-02/03, opacity-03/05/06) */
+  --radius-02: 4px; --radius-03: 8px;
+  --opacity-03: 0.5; --opacity-05: 0.75; --opacity-06: 1;
+  /* Type tokens — Figma text styles (F37 Zagma) */
+  --type-body: 400 24px/1.3 "F37 Zagma", sans-serif;          /* Body/Regular */
+  --type-body-bold: 700 24px/1.3 "F37 Zagma", sans-serif;     /* Body/Bold */
+  --type-small: 500 20px/1.3 "F37 Zagma", sans-serif;         /* Small Body/Regular */
+  --type-small-bold: 700 20px/1.3 "F37 Zagma", sans-serif;    /* Small Body/Bold */
+  --type-tag: 500 20px/1.4 "F37 Zagma", sans-serif;           /* Tag/Regular */
+  --type-tag-bold: 700 20px/1.4 "F37 Zagma", sans-serif;      /* Tag/Bold */
+  --type-cta: 700 24px/1.3 "F37 Zagma", sans-serif;           /* CTA/Bold (+0.06em tracking) */
+  --type-subtitle-2: 700 28px/1.3 "F37 Zagma", sans-serif;    /* Subtitle 2/Bold, Body Large/Bold */
+  --interactive-yellow: #e8f753;
+  --accent-primary-dim: #b2c44e;
+  --text: #ffffff;
+  --text-dim: rgba(255,255,255,0.65);
+  --text-muted: rgba(255,255,255,0.40);
+  --text-primary: #FFFFFF;      /* ITVX Text/Primary */
+  --text-secondary: #DFE1E3;    /* ITVX Text/Secondary */
+  --border-subtle: rgba(255,255,255,0.10);
+  --border-focus: #FFFFFF;   /* ITVX Border/Focus */
+  --tile-radius: var(--radius-03);   /* Figma tile Background: radius-03 (8) */
+  --rail-gap: 16px;   /* ctvcomponents Slider gap */
+  --tab-gap: 8px;
+  --rail-focus-x: 112px;   /* Figma content inset (Meta Area / Top Tabs / sliders pl112) */
+  --tab-focus-x: 112px;
+  --tile-w: 180px;
+  --tile-h: 270px;
+  --tab-h: 48px;
+  /* Landscape episode tiles — 16:9 to suit TMDB still frames. */
+  --ep-tile-w: 486px;
+  --ep-tile-h: 274px; /* Figma Episode Background 486×274 */
+  /* Prompt grid (Discover view) — 4×2 grid of portrait tiles. Sized to
+     fit beside the info panel within the discover-mode layout. */
+  --grid-tile-w: 234px;
+  --grid-tile-h: 350px; /* ctvcomponents Portrait tile: 234 × 350 */
+  --info-panel-w: 380px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: "F37 Zagma", "Inter", -apple-system, "SF Pro Display", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: #000;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  letter-spacing: -0.005em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   1920 × 1080 fixed viewport (per VOD spec). Letterboxed if the
+   window is bigger; downscaled proportionally if smaller.
+   ============================================================ */
+.app {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+  transform-origin: center center;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Soft fade on the left edge so tiles slide off cleanly */
+/* No fade on the series tabs shell — tabs slide off the hard edge. */
+.series-tabs-shell .focus-edge { display: none; }
+/* No gradient on the episode rail either. */
+.episode-rail-clip .focus-edge { display: none; }
+/* Or the prompt rails. */
+.prompt-area .focus-edge { display: none; }
+.focus-edge {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: var(--rail-focus-x);
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(90deg, var(--bg-secondary) 0%, rgba(16,37,51,0) 100%);
+}

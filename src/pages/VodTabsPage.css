@@ -1,0 +1,74 @@
+/* Ported verbatim from the VOD Tabs CTV prototype (index.html, page focus modes).
+   Class names match the prototype so designs and code stay 1:1. */
+
+/* ============= SERIES-FOCUS MODE — collapsed hero =============
+   When the user is focused on the series-tabs row (or has dropped
+   down into the episode rail), the hero collapses to 200px so the
+   tabs + episode rail get the bulk of the stage. Animates smoothly
+   so the transition feels intentional. */
+.vod-hero { transition: height 320ms cubic-bezier(.2,.8,.2,1),
+                        padding 320ms cubic-bezier(.2,.8,.2,1),
+                        opacity 320ms cubic-bezier(.2,.8,.2,1); }
+.hero    { transition: background-image 600ms ease,
+                       opacity 600ms ease,
+                       height 320ms cubic-bezier(.2,.8,.2,1); }
+
+/* Collapsed view: no title, no metadata — tabs move up to the top. */
+.app.series-focus .vod-hero { height: 48px; padding-top: 0; padding-bottom: 0; margin-bottom: 16px; }
+.app.series-focus .vod-hero-title,
+.app.series-focus .vod-hero-pills { display: none !important; }
+/* Tab view: backdrop stays full-bleed at 20% opacity behind everything. */
+.app.series-focus .hero { height: 1080px; opacity: 0.2; }
+
+/* ============= ALT HERO VARIANT (FEATURE_FLAGS.ALT_HERO) ===========
+   Two-column layout: left column carries the programme logo, pills
+   row and a vertically-stacked CTA stack; right column carries the
+   description block, bottom-aligned with the CTAs. Inherits the same
+   hero-collapse behaviour from .series-focus / .discover-focus. */
+/* The Figma template's two-column hero is now the BASE layout, so the
+   alt-hero flag only swaps the second CTA's label (rules below). */
+.app.alt-hero.restart-on .vod-cta.secondary { padding: 0 var(--spacing-03); }
+/* Second CTA's label cycles through three states:
+     - Default hero            → "Trailer"
+     - Alt hero, 2 buttons     → "watch AD free"
+     - Alt hero, 3 buttons     → "AD Free" (compact form)
+   The two AD-free spans live side-by-side; CSS just toggles which
+   one is visible based on which hero/restart combo is active. */
+
+.app.series-focus .vod-hero-logo { width: 240px; }
+/* Episode-slider (collapsed hero): no title at all. */
+.app.series-focus .hero-title-logo,
+.app.series-focus .hero-title-text { display: none !important; }
+.app.series-focus .vod-hero-itvx-logo { width: 64px; }
+.app.series-focus .vod-hero-desc,
+.app.series-focus .vod-hero-desc-block { display: none; }
+.app.series-focus .vod-cta-row { display: none; }
+
+/* ============= DISCOVER-FOCUS — hide hero + series tabs ==========
+   When the user is parked on the discover filter pills or on a tile
+   in the discover rail, collapse the hero AND the series-nav row,
+   and slide the episode rail up by half its own height so only its
+   bottom half remains as a peek above the discover area. */
+.app.discover-focus .hero,
+.app.discover-focus .vod-hero { height: 0; padding: 0; overflow: hidden; }
+.app.discover-focus .vod-hero > * { display: none; }
+.app.discover-focus .series-tabs-shell { height: 0; padding: 0; overflow: hidden; }
+.series-tabs-shell { transition: height 320ms cubic-bezier(.2,.8,.2,1),
+                                 padding 320ms cubic-bezier(.2,.8,.2,1); }
+/* Episode rail: half-up peek when discover is focused. Negative
+   margin pulls everything below it up by the same amount, so the
+   discover section rises to fill the freed space. */
+.episode-rail-shell {
+  transition: margin 320ms cubic-bezier(.2,.8,.2,1),
+              opacity 220ms ease;
+}
+.app.discover-focus .episode-rail-shell {
+  margin-top: calc((var(--ep-tile-h) + 120px) * -0.5);
+}
+
+/* Out-of-focus dimming — the section that does NOT own the cursor
+   drops to 80% opacity so the focused row reads as the live one. */
+.episode-rail-shell.dim,
+.prompt-area.dim { opacity: 0.8; }
+.prompt-area { transition: opacity 220ms ease, transform 400ms cubic-bezier(0.33, 0, 0.2, 1); }
+
