@@ -73,3 +73,13 @@ frame after the hero CTA and episode rail are drawn.
 - **Layout breaks:** the engine has no flex `gap` and/or `inset`.
 - **Not checked:** the engine isn't fixed per model year (Fire OS / Android WebView), or isn't Chromium (PS4 WebMAF), so
   it needs device testing.
+
+**Update (same day): older-device fix applied.** The "won't start" and "layout breaks" verdicts above describe the
+build at the time of measurement. Since then:
+- The build targets Chromium 68.
+- Flex `gap` has a detected fallback.
+- `inset` is lowered at build time.
+- `:has()` and `Object.fromEntries` have been removed.
+
+So 2020–2022 Samsung and LG TVs are now expected to load and lay out correctly (handover spec §11). Load times are
+unaffected: the bundle size barely changed (171 kB, 54 kB gzipped).

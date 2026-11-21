@@ -20,30 +20,27 @@ export interface Feature {
   usedIn: string;
 }
 
+/**
+ * Since the older-device fix (build target chrome68, flex-gap fallback,
+ * :has() and Object.fromEntries removed, inset lowered at build time) the
+ * only hard requirement left is the build target itself.
+ */
 export const FEATURES: Feature[] = [
   {
-    id: 'es2020',
-    name: 'ES2020 syntax in the JS bundle (?. ?? — Vite default target)',
-    minChromium: 80,
+    id: 'build-target',
+    name: 'JS bundle built for Chromium 68 (vite.config.ts BROWSER_TARGET)',
+    minChromium: 68,
     severity: 'breaks',
-    impact: 'Bundle fails to parse — blank page. Fix: set build.target or add @vitejs/plugin-legacy.',
-    usedIn: 'All components (optional chaining / nullish coalescing)',
+    impact: 'Below Chromium 68 the bundle may not parse. Lower BROWSER_TARGET (and re-test) to go older.',
+    usedIn: 'vite.config.ts',
   },
   {
-    id: 'flex-gap',
-    name: 'Flexbox gap',
+    id: 'flex-gap-fallback',
+    name: 'Flexbox gap (fallback active)',
     minChromium: 84,
-    severity: 'breaks',
-    impact: 'Tabs, chips, rails and hero rows lose their spacing; rail focus maths (pitch) no longer matches the layout.',
-    usedIn: '38 `gap:` rules across all components',
-  },
-  {
-    id: 'inset',
-    name: 'CSS inset shorthand',
-    minChromium: 87,
-    severity: 'breaks',
-    impact: 'Rail clip areas, tile overlays and the hero gradient collapse or mis-position.',
-    usedIn: 'EpisodeRail, RelatedRail, TrailerRail, HeroBackdrop, CtaTower',
+    severity: 'cosmetic',
+    impact: 'Native gap missing; styles/flex-gap-fallback.css applies matching margins. Verified pixel-identical in modern Chrome with gap disabled.',
+    usedIn: 'legacy/flexGap.ts + styles/flex-gap-fallback.css',
   },
   {
     id: 'aspect-ratio',
@@ -52,14 +49,6 @@ export const FEATURES: Feature[] = [
     severity: 'cosmetic',
     impact: 'None on the page (trailer tiles set an explicit height).',
     usedIn: 'TrailerRail',
-  },
-  {
-    id: 'has',
-    name: ':has() selector',
-    minChromium: 105,
-    severity: 'degrades',
-    impact: 'Focused episode no longer stands out from dimmed siblings; related-rail heading stays at 50%.',
-    usedIn: 'EpisodeRail, RelatedRail',
   },
   {
     id: 'text-wrap-pretty',

@@ -274,14 +274,30 @@ export function navigate(state: NavState, key: NavKey, config: NavConfig): NavRe
   }
 }
 
-/** Map a DOM KeyboardEvent.key to a NavKey (Backspace / Escape = Back). */
+/** Map a DOM KeyboardEvent.key to a NavKey (Backspace / Escape / TV Back keys = Back). */
 export function toNavKey(key: string): NavKey | null {
   switch (key) {
     case 'ArrowLeft': case 'ArrowRight': case 'ArrowUp': case 'ArrowDown': return key;
-    case 'Enter': case ' ': return 'Enter';
-    case 'Backspace': case 'Escape': return 'Back';
+    case 'Left': case 'Right': case 'Up': case 'Down': return ('Arrow' + key) as NavKey; // older engines
+    case 'Enter': case ' ': case 'Select': return 'Enter';
+    case 'Backspace': case 'Escape': case 'GoBack': case 'BrowserBack': case 'XF86Back': return 'Back';
     default: return null;
   }
+}
+
+/**
+ * TV remotes often report Back (and on old engines, arrows) only through
+ * keyCode: LG webOS Back = 461, Samsung Tizen Return = 10009, Android/Fire TV
+ * WebView Back = 4. Arrows 37–40 and OK 13 are standard.
+ */
+const KEYCODE_MAP: Record<number, NavKey> = {
+  37: 'ArrowLeft', 38: 'ArrowUp', 39: 'ArrowRight', 40: 'ArrowDown',
+  13: 'Enter', 8: 'Back', 27: 'Back', 461: 'Back', 10009: 'Back', 4: 'Back',
+};
+
+/** NavKey for a keyboard / remote event: `key` first, then the TV keyCode table. */
+export function navKeyFromEvent(e: Pick<KeyboardEvent, 'key' | 'keyCode'>): NavKey | null {
+  return toNavKey(e.key) ?? KEYCODE_MAP[e.keyCode] ?? null;
 }
 
 /* ---------------------------------------------------- derived view --- */

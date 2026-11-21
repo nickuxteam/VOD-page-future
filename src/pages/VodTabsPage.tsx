@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { Cta, Episode, GuidanceMode, Programme, RelatedProgramme } from '../types';
 import {
-  deriveView, initialNavState, navigate, seriesChipOrder, toNavKey,
+  deriveView, initialNavState, navigate, navKeyFromEvent, seriesChipOrder,
   type NavConfig, type NavEffect, type NavState, type TabId,
 } from '../navigation/vodNavigation';
 import { HeroBackdrop } from '../components/HeroBackdrop/HeroBackdrop';
@@ -72,7 +72,10 @@ export function VodTabsPage({
     return {
       tabs,
       seriesNumbers,
-      episodeCounts: Object.fromEntries(seriesNumbers.map((n) => [n, episodesBySeries[n].length])),
+      episodeCounts: seriesNumbers.reduce<Record<number, number>>((acc, n) => {
+        acc[n] = episodesBySeries[n].length;
+        return acc;
+      }, {}),
       ctaCount: CTA_COUNT,
       trailerCount: trailers.length,
       relatedCount: related.length,
@@ -129,7 +132,7 @@ export function VodTabsPage({
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
       if (t && (t.tagName === 'INPUT' || t.tagName === 'SELECT' || t.tagName === 'TEXTAREA')) return;
-      const key = toNavKey(e.key);
+      const key = navKeyFromEvent(e);
       if (!key) return;
       e.preventDefault();
       const { nav: cur, config: cfg, runEffect: run } = latest.current;

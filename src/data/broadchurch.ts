@@ -28,20 +28,18 @@ export const programme: Programme = {
 };
 
 /** 3 series × 8 episodes, 45 mins — per the prototype's metadata sheet. */
-export const episodesBySeries: Record<number, Episode[]> = Object.fromEntries(
-  [1, 2, 3].map((s) => [
-    s,
-    Array.from({ length: 8 }, (_, i): Episode => ({
-      series: s,
-      episode: i + 1,
-      title: `Episode ${i + 1}`,
-      description: 'Episode synopsis from the content API — clamped to three lines on the tile.',
-      length: '45m',
-      access: ['AD', 'S'],
-      ...(s === 3 && i === 7 ? { tag: 'New episode' } : {}),
-    })),
-  ]),
-);
+export const episodesBySeries: Record<number, Episode[]> = {};
+[1, 2, 3].forEach((s) => {
+  episodesBySeries[s] = Array.from({ length: 8 }, (_, i): Episode => ({
+    series: s,
+    episode: i + 1,
+    title: `Episode ${i + 1}`,
+    description: 'Episode synopsis from the content API — clamped to three lines on the tile.',
+    length: '45m',
+    access: ['AD', 'S'],
+    ...(s === 3 && i === 7 ? { tag: 'New episode' } : {}),
+  }));
+});
 
 const related = (title: string, subgenre: string): RelatedProgramme => ({
   id: title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),

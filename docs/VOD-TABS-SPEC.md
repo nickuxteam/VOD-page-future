@@ -523,3 +523,26 @@ on.
 - [ ] Contrast pairs match §6.1, and no text is under 20px.
 - [ ] All motion uses the §5 timings and is disabled under `prefers-reduced-motion`.
 
+---
+
+## 11. Browser support and older TVs
+
+**Minimum engine: Chromium 68.** That covers every Samsung (Tizen 5.5+) and LG (webOS 5+) TV from 2020, as well as later
+models. ✅
+
+| Requirement | How it's met |
+| --- | --- |
+| **JS syntax** | `vite.config.ts` builds with `target: 'chrome68'`, so esbuild lowers `?.`, `??` and similar syntax. The bundle is checked to parse as ES2019. |
+| **JS built-ins** | No ES2019+ runtime APIs are used, because the build doesn't polyfill. `Object.fromEntries` was replaced with `reduce`/loops. Avoid `.flat()`, `.at()`, `replaceAll`, `Object.hasOwn` and `structuredClone`. |
+| **`inset`** (Chromium 87) | `cssTarget: 'chrome68'` makes esbuild expand it to `top/right/bottom/left` at build time. |
+| **Flex `gap`** (Chromium 84) | `legacy/flexGap.ts` measures support on startup. Where it's missing, it adds `html.no-flex-gap`, and `styles/flex-gap-fallback.css` supplies matching margins. **When you add `gap` to a flex container, add its fallback too.** Don't use bare text as a flex item where `gap` matters: margins can't space text nodes. |
+| **`:has()`** (Chromium 105) | Not used. Components set state classes instead: `.episode-tile-wrap.is-focused`, `.trailer-tile-wrap.is-focused`, `.prompt-area.has-focus`. |
+| **Remote keys** | `navKeyFromEvent()` maps `key` first, then TV keyCodes: LG Back `461`, Samsung Return `10009`, Android/Fire TV Back `4`, and arrows `37–40` / OK `13` for engines without `KeyboardEvent.key` values. |
+| **Cosmetic only** | `aspect-ratio` (88, overridden by an explicit height) and `text-wrap: pretty` (117) degrade harmlessly. |
+
+**Verification:**
+- Modern Chrome with flex `gap` disabled detects the gap and switches the fallback on. It then renders pixel-identically
+  to normal in the hero, tabs, sub nav, rail, About and Trailers states.
+- The episodes state differs only by the same text anti-aliasing noise seen between two normal renders.
+- **Still to do:** a test pass on a real 2020–2022 Samsung and LG set, or the Tizen/webOS emulators.
+
