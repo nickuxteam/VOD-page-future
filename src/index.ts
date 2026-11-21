@@ -12,3 +12,6 @@ export { AboutPanel } from './components/AboutPanel/AboutPanel';
 export { TrailerRail, type Trailer } from './components/TrailerRail/TrailerRail';
 export { KeyHint } from './components/KeyHint/KeyHint';
 export { VodTabsPage, type VodTabsPageProps } from './pages/VodTabsPage';
+export { ConfigPanel } from './config/ConfigPanel';
+export { DeviceSimulator } from './simulation/DeviceSimulator';
+export { FIRE_TV_STICKS, NO_SIMULATION, findDevice, deviceLabel, type DeviceProfile, type GpuTier } from './simulation/devices';

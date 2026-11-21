@@ -12,6 +12,10 @@ npm test        # navigation model unit tests
 npm run build   # typecheck + production build
 ```
 
+Press **Q** in the demo to open the config panel. **Device simulation** lets you run the page as any Amazon Fire TV
+Stick (2014–2026): frame rate, remote lag, dropped presses and GPU effects are throttled to match each device. The
+default is *No simulation*. See [`docs/VOD-TABS-SPEC.md` §11](docs/VOD-TABS-SPEC.md#11-device-simulation-amazon-fire-tv-stick).
+
 ## Structure
 
 ```
@@ -31,6 +35,8 @@ src/
     TrailerRail/             Trailers tab content
     KeyHint/                 keyboard → remote hint bar
   pages/VodTabsPage.tsx      the full page composed from the above
+  config/ConfigPanel.tsx     Q config panel (device simulation dropdown)
+  simulation/                Fire TV Stick profiles + DeviceSimulator (CPU / input / GPU throttling)
   data/broadchurch.ts        demo content (the prototype's default programme)
 ```
 

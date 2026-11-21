@@ -522,3 +522,55 @@ on.
 - [ ] Only one of Episodes / About / Trailers is visible at a time.
 - [ ] Contrast pairs match §6.1, and no text is under 20px.
 - [ ] All motion uses the §5 timings and is disabled under `prefers-reduced-motion`.
+
+---
+
+## 11. Device simulation (Amazon Fire TV Stick)
+
+Press **Q** to open the config panel. Under **Device simulation**, pick a Fire TV Stick. The default is **No simulation**,
+and the choice is saved in `localStorage` (`vod.simulation.device`). ✅ (`src/simulation/`, `src/config/ConfigPanel.tsx`)
+
+### 11.1 What is simulated
+A desktop browser can't run at a Fire TV's speed, so each limit is reproduced separately:
+
+| Device limit | How it's simulated |
+| --- | --- |
+| **CPU speed** | A `requestAnimationFrame` loop holds the main thread until each frame has lasted `1000 / uiFps` ms. React renders, layout and key handling all queue behind it, as on a slow stick. The HUD shows the measured fps. |
+| **Remote lag** | Every press is handled `inputLatencyMs` later. Presses queue and resolve against the latest state. |
+| **Dropped presses** (oldest sticks) | Presses arriving while one is still pending are discarded. |
+| **GPU** | CSS transitions and animations become `steps()` at the device frame rate, because a desktop GPU would otherwise keep them smooth. `mid` GPUs lose blur filters and text glows. `low` GPUs also lose all shadows and the loading shimmer, while focus strokes are kept. |
+| **Not simulated** | RAM limits / memory pressure, video decode (4K/HDR/AV1), network speed, and WebView engine differences. Test these on hardware. |
+
+### 11.2 Profiles
+Hardware comes from Amazon developer specs and launch coverage. The **simulated values are estimates** derived from
+that hardware. They are tuned so devices rank correctly against each other, so calibrate them on real devices.
+
+| Device | Year | SoC | CPU | GPU | RAM | OS | Sim fps | Sim lag | Drops | GPU tier |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Fire TV Stick (1st Gen) | 2014 | Broadcom BCM28155 | 2× A9 1.0 GHz | VideoCore IV | 1 GB | Fire OS 3→5 | 15 | 220 ms | ✓ | low |
+| Fire TV Stick (2nd Gen) | 2016 | MediaTek MT8127D | 4× A7 1.3 GHz | Mali-450 MP4 | 1 GB | Fire OS 5 | 20 | 160 ms | ✓ | low |
+| Fire TV Stick Basic Edition | 2017 | MediaTek MT8127D | 4× A7 1.3 GHz | Mali-450 MP4 | 1 GB | Fire OS 5 | 20 | 160 ms | ✓ | low |
+| Fire TV Stick 4K | 2018 | MediaTek MT8695 | 4× A53 1.7 GHz | IMG GE8300 | 1.5 GB | Fire OS 6 | 30 | 90 ms | | mid |
+| Fire TV Stick Lite | 2020 | MediaTek MT8695D | 4× A53 1.7 GHz | IMG GE8300 | 1 GB | Fire OS 7 | 30 | 100 ms | | mid |
+| Fire TV Stick (3rd Gen) | 2020 | MediaTek MT8695D | 4× A53 1.7 GHz | IMG GE8300 | 1 GB | Fire OS 7 | 30 | 100 ms | | mid |
+| Fire TV Stick 4K Max | 2021 | MediaTek MT8696 | 4× A55 1.8 GHz | IMG GE9215 750 MHz | 2 GB | Fire OS 7 | 45 | 60 ms | | high |
+| Fire TV Stick 4K (2nd Gen) | 2023 | MediaTek MT8696D | 4× A55 1.7 GHz | IMG GE9215 650 MHz | 2 GB | Fire OS 8 | 45 | 60 ms | | high |
+| Fire TV Stick 4K Max (2nd Gen) | 2023 | MediaTek MT8696T | 4× A55 2.0 GHz | IMG GE9215 850 MHz | 2 GB | Fire OS 8 | 55 | 45 ms | | high |
+| Fire TV Stick HD | 2024 | MediaTek MT8695D | 4× A53 1.7 GHz | IMG GE8300 | 1 GB | Fire OS 7 | 30 | 100 ms | | mid |
+| Fire TV Stick 4K Select | 2025 | MediaTek MT8698 | 4× A55 1.7 GHz | — | 1 GB | Vega OS | 30 | 110 ms | | mid |
+| Fire TV Stick HD | 2026 | MediaTek MT8698D | 4× A55 1.7 GHz | Mali-G310 V2 500 MHz | 1 GB | Vega OS | 30 | 110 ms | | mid |
+
+**Sources:**
+- [Amazon: Fire TV streaming media player specs](https://developer.amazon.com/docs/device-specs/device-specifications-fire-tv-streaming-media-player.html)
+- [Amazon: Fire TV comparison table](https://developer.amazon.com/docs/device-specs/device-specifications-comparison-table.html)
+- [CNX Software: 4K Max (2021)](https://www.cnx-software.com/2021/10/12/55-amazon-fire-tv-stick-4k-max-supports-4k-av1-videos-wi-fi-6/)
+- [CNX Software: 4K Max (2023)](https://www.cnx-software.com/2023/09/22/amazon-fire-tv-stick-4k-max-2023-features-a-2-ghz-mediatek-mt8696t-cpu-support-wifi-6e/)
+- [CNX Software: 4K Select / Vega OS](https://www.cnx-software.com/2025/10/03/linux-based-vega-os-replaces-android-based-fire-os-in-amazon-fire-tv-stick-4k-select/)
+- [CNX Software: 1st Gen (2014)](https://www.cnx-software.com/2014/10/28/amazon-introduces-39-fire-tv-stick-to-compete-with-chromecast-roku-streaming-stick/)
+- [AFTVnews: Lite / 3rd Gen / 4K differences](https://www.aftvnews.com/all-the-differences-between-the-fire-tv-stick-lite-fire-tv-stick-3-and-fire-tv-stick-4k/)
+- [AFTVnews: 4K Select](https://www.aftvnews.com/amazon-announces-fire-tv-stick-4k-select-the-first-non-android-based-fire-tv-running-vega-os/)
+
+**Conflicting reports:**
+- **1st Gen CPU clock:** 1.0 GHz in most sources, though AFTVnews suspected 1.2 GHz.
+- **4K Max (2021) CPU cores:** reported as both A53 and A55.
+- **4K (2nd Gen) GPU clock:** Amazon's English and Japanese pages may differ.

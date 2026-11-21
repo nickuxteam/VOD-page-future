@@ -1,0 +1,37 @@
+/* Device simulation — see DeviceSimulator.tsx. Only active while a device
+   is selected (classes live on <html>). */
+
+/* Low-end GPUs can't draw smooth compositor animations: step every
+   transition at the device's frame rate. */
+.sim-active .app *,
+.sim-active .app *::before,
+.sim-active .app *::after {
+  transition-timing-function: steps(var(--sim-steps, 10), end) !important;
+  animation-timing-function: steps(var(--sim-steps, 10), end) !important;
+}
+
+/* Mid: drop blur-based effects (filters, text glows). */
+.sim-gpu-mid .app *,
+.sim-gpu-low .app * {
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Low: fill-rate limited — no shadows or glows at all, no loading shimmer.
+   Focus indicators that rely on box-shadow are re-asserted as plain strokes. */
+.sim-gpu-low .app * { box-shadow: none !important; }
+.sim-gpu-low .app *::before { animation: none !important; }
+.sim-gpu-low .app .about-panel.focused { box-shadow: inset 0 0 0 2px #ffffff !important; }
+.sim-gpu-low .app .grid-tile.focused { box-shadow: 0 0 0 3px #ffffff !important; }
+
+/* HUD sits outside the 1920×1080 canvas, top-left of the browser window. */
+.sim-hud {
+  position: fixed; top: 8px; left: 8px; z-index: 1000;
+  display: flex; flex-direction: column; gap: 2px;
+  max-width: calc(100vw - 16px);
+  padding: 8px 12px; border-radius: 6px;
+  background: rgba(7, 17, 24, 0.85); border: 1px solid rgba(255, 255, 255, 0.15);
+  font: 500 12px/1.4 "F37 Zagma", "Inter", system-ui, sans-serif; color: #dfe1e3;
+  pointer-events: none;
+}
+.sim-hud strong { color: #deeb52; font-weight: 700; }

@@ -23,6 +23,12 @@ export interface VodTabsPageProps {
   guidance?: { mode: GuidanceMode; full: string; short: string };
   episodeRailEnd?: RailEndMode;
   showKeyHint?: boolean;
+  /** Ignore remote input (e.g. while a config panel is open). */
+  inputEnabled?: boolean;
+  /** Device simulation: delay before a press is handled. */
+  inputLatencyMs?: number;
+  /** Device simulation: discard presses that arrive while one is still pending. */
+  dropKeysWhileBusy?: boolean;
   onPlayEpisode?: (episode: Episode) => void;
   onOpenProgramme?: (item: RelatedProgramme) => void;
   onCta?: (cta: Cta, index: number) => void;
@@ -49,7 +55,8 @@ const titleCase = (s: string) => s.toLowerCase().replace(/\b[a-z]/g, (c) => c.to
  */
 export function VodTabsPage({
   programme: p, episodesBySeries, related, trailers: trailersProp, guidance,
-  episodeRailEnd = 'breakaway-1', showKeyHint = true, onPlayEpisode, onOpenProgramme, onCta,
+  episodeRailEnd = 'breakaway-1', showKeyHint = true, inputEnabled = true, inputLatencyMs = 0,
+  dropKeysWhileBusy = false, onPlayEpisode, onOpenProgramme, onCta,
 }: VodTabsPageProps) {
   const seriesNumbers = useMemo(
     () => Array.from({ length: p.seriesCount }, (_, i) => i + 1).filter((n) => episodesBySeries[n]?.length),
@@ -121,21 +128,45 @@ export function VodTabsPage({
     }
   }, [ctas, episodesBySeries, related, trailers, onCta, onPlayEpisode, onOpenProgramme]);
 
+  // Latest values for key handling, so delayed (simulated) presses act on current state.
+  const latest = useRef({ nav, config, runEffect });
+  latest.current = { nav, config, runEffect };
+  const pending = useRef(0);
+
   useEffect(() => {
+    if (!inputEnabled) return;
+    const handle = (key: NonNullable<ReturnType<typeof toNavKey>>) => {
+      const { nav: cur, config: cfg, runEffect: run } = latest.current;
+      const { state, effect } = navigate(cur, key, cfg);
+      latest.current.nav = state; // queued presses chain off this result
+      if (state.section !== 'trailer') setPlayingTrailer(null);
+      setNav(state);
+      run(effect);
+    };
+    const timers = new Set<number>();
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
       if (t && (t.tagName === 'INPUT' || t.tagName === 'SELECT' || t.tagName === 'TEXTAREA')) return;
       const key = toNavKey(e.key);
       if (!key) return;
       e.preventDefault();
-      const { state, effect } = navigate(nav, key, config);
-      if (state.section !== 'trailer') setPlayingTrailer(null);
-      setNav(state);
-      runEffect(effect);
+      if (inputLatencyMs <= 0) { handle(key); return; }
+      if (dropKeysWhileBusy && pending.current > 0) return;
+      pending.current++;
+      const id = window.setTimeout(() => {
+        timers.delete(id);
+        pending.current--;
+        handle(key);
+      }, inputLatencyMs);
+      timers.add(id);
     };
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [nav, config, runEffect]);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      timers.forEach((id) => clearTimeout(id));
+      pending.current = 0;
+    };
+  }, [inputEnabled, inputLatencyMs, dropKeysWhileBusy]);
 
   // In discover mode, About / Trailers pull up so only their lower part peeks above the rail.
   const aboutRef = useRef<HTMLElement>(null);
