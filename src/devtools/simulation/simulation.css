@@ -36,3 +36,20 @@
 }
 .sim-hud strong { color: #deeb52; font-weight: 700; }
 .sim-hud-warn { color: #ff576d; font-weight: 700; }
+
+/* CPU / memory usage bars in the HUD. */
+.sim-bars { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+.sim-bar { display: grid; grid-template-columns: 52px 160px auto; align-items: center; gap: 8px; }
+.sim-bar-label { font-weight: 700; color: #aac0c8; }
+.sim-bar-track {
+  position: relative; height: 8px; border-radius: 4px; overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
+}
+.sim-bar-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: #80ffb5; border-radius: 4px;
+  transition: width 400ms ease;
+}
+.sim-bar-fill.mid { background: #f09345; }
+.sim-bar-fill.high { background: #ff576d; }
+.sim-bar-value { font-variant-numeric: tabular-nums; color: #dfe1e3; }

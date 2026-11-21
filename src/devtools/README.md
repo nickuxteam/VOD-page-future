@@ -13,7 +13,7 @@ Everything in `src/devtools/` is internal tooling for testing the prototype. It 
 | `DevToolsShell.tsx` | Wraps the demo page: Q panel, simulator, and simulated remote lag (intercepts key presses before the page sees them) |
 | `config/ConfigPanel.tsx` | The Q panel and its device dropdown (grouped Fire TV Stick / PlayStation) |
 | `simulation/devices.ts` | Device profiles (hardware + estimated simulation values) |
-| `simulation/DeviceSimulator.tsx` | Frame-rate cap, GPU-effect reduction, HUD |
+| `simulation/DeviceSimulator.tsx` | Frame-rate cap, GPU-effect reduction, HUD with CPU / memory bars |
 | `simulation/compat.ts` | Web-platform features the page needs vs each device's Chromium version |
 | `scripts/measure-load.mjs` | Page-load timing for every device (see below) |
 
@@ -27,6 +27,23 @@ A desktop browser can't run at a Fire TV's speed, so each limit is reproduced se
 | **Dropped presses** (oldest sticks) | Presses arriving while one is still pending are discarded. |
 | **GPU** | CSS transitions and animations become `steps()` at the device frame rate, because a desktop GPU would otherwise keep them smooth. `mid` GPUs lose blur filters and text glows. `low` GPUs also lose all shadows and the loading shimmer, while focus strokes are kept. |
 | **Not simulated** | RAM limits / memory pressure, video decode (4K/HDR/AV1), network speed, and WebView engine differences. Test these on hardware. |
+
+## CPU and memory bars
+
+When a device is selected, the HUD (top left) shows two bars, updated every second.
+
+**CPU: the estimated share of the device's CPU the page is using.**
+- The simulator's throttle fills each frame up to the device's budget, so the main thread never idles. The time between
+  throttle spins is therefore the page's own work: React, events, style, layout and paint.
+- That work is multiplied by the device's CPU slowdown factor and capped at 100%.
+- The bar turns amber at 60% and red at 85%.
+- Raw numbers are available in the console as `window.__simStats`.
+
+**Memory: the page's JavaScript heap against an estimated per-app budget.**
+- The budget is 20% of the device's RAM. When the manufacturer doesn't publish RAM, 1 GB is assumed and the bar says so.
+- The heap figure comes from Chrome's non-standard `performance.memory`. Chrome rounds it and updates it infrequently.
+- It excludes DOM, image and GPU memory, so real usage is higher.
+- Both the budget and the heap figure are indicative only.
 
 ## Profiles
 Hardware comes from Amazon developer specs, launch coverage and Sony's published specs. The **simulated values are estimates** derived from
