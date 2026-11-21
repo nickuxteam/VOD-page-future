@@ -347,16 +347,17 @@ components. In this repo they map to props: `Programme.tags/strapline/strapline2
 
 | Scenario | Default for | Primary CTA | Secondaries (in order) | Starting series / episode | Hero tags | Progress |
 | --- | --- | --- | --- | --- | --- | --- |
-| `start` | Default | **Start watching - S1:E1** | Watch ad free · Trailer · Add to list | S1 E1 | — | — |
-| `latestseries` | — | Start watching - S{max}:E1 | Watch ad free · Trailer · Add to list | Newest series, E1 | **LATEST SERIES** | — |
-| `latest` | Reality (e.g. Love Island) | **Latest episode - S{max}:E{last}** | Watch ad free · Trailer · Add to list | Newest series, last episode | **NEW EPISODE** | — |
+| `start` | Default | **Start watching - S1:E1** | Watch ad free · Add to list (3-button tower) | S1 E1 | — | — |
+| `latestseries` | — | Start watching - S{max}:E1 | Watch ad free · Add to list (3-button tower) | Newest series, E1 | **LATEST SERIES** | — |
+| `latest` | Reality (e.g. Love Island) | **Latest episode - S{max}:E{last}** | Watch ad free · Add to list (3-button tower) | Newest series, last episode | **NEW EPISODE** | — |
 | `continue` | `continueWatching` titles | **Continue watching - S{s}:E{e}** | Restart · Watch ad free · Add to list | Resume point (prototype: S1 E7, 75%) | — | Bar under primary at the resume % (`--text-interactive`) |
 | `live` | Live titles | **Live - S{max}:E{last}** | Start again · Add to list · Watch ad free | Newest, last | **LIVE** (mint) + "29 mins left" in mint | Mint bar under primary (62%) |
 | `comingsoon` | Pre-TX | **Watch trailer** | Remind me (bell) | Newest series | — | — |
 
 CTA rules:
 - **Tower size:**
-  - Default is primary + up to **3** secondaries (films: 2).
+  - `start`, `latestseries` and `latest` default to the **3-button tower** (primary + Watch ad free + Add to list) with
+    no Trailer button. Films keep Trailer. Other scenarios allow up to **3** secondaries (films: 2).
   - A 3-secondary tower relabels "Watch ad free" to **"Go Ad Free"**.
   - With a single secondary, the tower becomes the 2-button variant: the secondary is full width, 610×64.
 - **Films:** there's no S:E suffix. The primary reads "Watch film" or "Continue watching". When the tower is trimmed,

@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Stage } from './components/Stage/Stage';
 import { VodTabsPage } from './pages/VodTabsPage';
 import { episodesBySeries, programme, relatedProgrammes } from './data/broadchurch';
+import type { Episode, Programme, RelatedProgramme } from './types';
 
 /**
  * Dev tools (Q config panel, device simulation) are dev-only and not part
@@ -11,13 +12,16 @@ import { episodesBySeries, programme, relatedProgrammes } from './data/broadchur
 const DEVTOOLS_ENABLED = import.meta.env.DEV || import.meta.env.VITE_DEVTOOLS === 'true';
 const DevToolsShell = DEVTOOLS_ENABLED ? lazy(() => import('./devtools/DevToolsShell')) : null;
 
-export function App() {
+interface Content { programme: Programme; episodesBySeries: Record<number, Episode[]>; related: RelatedProgramme[] }
+const DEMO: Content = { programme, episodesBySeries, related: relatedProgrammes };
+
+export function App({ content = DEMO }: { content?: Content }) {
   const page = (
     <Stage>
       <VodTabsPage
-        programme={programme}
-        episodesBySeries={episodesBySeries}
-        related={relatedProgrammes}
+        programme={content.programme}
+        episodesBySeries={content.episodesBySeries}
+        related={content.related}
         onPlayEpisode={(ep) => console.info('play', `S${ep.series}:E${ep.episode}`)}
         onOpenProgramme={(item) => console.info('open', item.title)}
         onCta={(cta) => console.info('cta', cta.id)}
