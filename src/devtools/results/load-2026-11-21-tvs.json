@@ -1,0 +1,1217 @@
+{
+  "runs": 3,
+  "react": [
+    {
+      "device": "baseline",
+      "name": "No simulation (this machine)",
+      "cpuSlowdown": 1,
+      "fcp": 116,
+      "ready": 69.5999999998603
+    },
+    {
+      "device": "samsung-2020",
+      "name": "Samsung TU7100 / TU7000",
+      "cpuSlowdown": 12,
+      "fcp": 932,
+      "ready": 897.2999999998137
+    },
+    {
+      "device": "samsung-2021",
+      "name": "Samsung AU7100 / AU8000",
+      "cpuSlowdown": 11,
+      "fcp": 832,
+      "ready": 795.8000000000466
+    },
+    {
+      "device": "samsung-2022",
+      "name": "Samsung BU8000",
+      "cpuSlowdown": 11,
+      "fcp": 696,
+      "ready": 681.2999999998137
+    },
+    {
+      "device": "samsung-2023",
+      "name": "Samsung CU7100 / CU7000",
+      "cpuSlowdown": 11,
+      "fcp": 856,
+      "ready": 843.3999999999069
+    },
+    {
+      "device": "samsung-2024",
+      "name": "Samsung DU7100 / DU7200",
+      "cpuSlowdown": 10,
+      "fcp": 680,
+      "ready": 647.1999999999534
+    },
+    {
+      "device": "samsung-2025",
+      "name": "Samsung U8000F",
+      "cpuSlowdown": 9,
+      "fcp": 608,
+      "ready": 598.3999999999069
+    },
+    {
+      "device": "samsung-2026",
+      "name": "Samsung U8000H",
+      "cpuSlowdown": 9,
+      "fcp": 724,
+      "ready": 712.8000000000466
+    },
+    {
+      "device": "lg-2020",
+      "name": "LG UN73 / UN7300",
+      "cpuSlowdown": 12,
+      "fcp": 1148,
+      "ready": 1122.3000000000466
+    },
+    {
+      "device": "lg-2021",
+      "name": "LG UP75 / UP7000",
+      "cpuSlowdown": 11,
+      "fcp": 820,
+      "ready": 811.6999999999534
+    },
+    {
+      "device": "lg-2022",
+      "name": "LG UQ75",
+      "cpuSlowdown": 10,
+      "fcp": 800,
+      "ready": 773.7000000001863
+    },
+    {
+      "device": "lg-2023",
+      "name": "LG UR78",
+      "cpuSlowdown": 10,
+      "fcp": 956,
+      "ready": 940.5999999998603
+    },
+    {
+      "device": "lg-2024",
+      "name": "LG UT80",
+      "cpuSlowdown": 9.5,
+      "fcp": 796,
+      "ready": 771.6999999999534
+    },
+    {
+      "device": "lg-2025",
+      "name": "LG UA75 / UA73",
+      "cpuSlowdown": 8.5,
+      "fcp": 964,
+      "ready": 928
+    },
+    {
+      "device": "lg-2026",
+      "name": "LG NANO NU80",
+      "cpuSlowdown": 8,
+      "fcp": 620,
+      "ready": 566.3000000000466
+    },
+    {
+      "device": "sony-2020",
+      "name": "Sony XH80 / X800H",
+      "cpuSlowdown": 8,
+      "fcp": 544,
+      "ready": 504.39999999990687
+    },
+    {
+      "device": "sony-2021",
+      "name": "Sony X80J",
+      "cpuSlowdown": 7,
+      "fcp": 584,
+      "ready": 557.6999999999534
+    },
+    {
+      "device": "sony-2022",
+      "name": "Sony X80K",
+      "cpuSlowdown": 7,
+      "fcp": 716,
+      "ready": 708.8999999999069
+    },
+    {
+      "device": "sony-2023",
+      "name": "Sony X75WL",
+      "cpuSlowdown": 9,
+      "fcp": 736,
+      "ready": 699.5
+    },
+    {
+      "device": "sony-2024",
+      "name": "Sony Bravia 3",
+      "cpuSlowdown": 9,
+      "fcp": 852,
+      "ready": 806.7999999998137
+    },
+    {
+      "device": "sony-2025",
+      "name": "Sony Bravia 2 II",
+      "cpuSlowdown": 10,
+      "fcp": 812,
+      "ready": 775.3999999999069
+    },
+    {
+      "device": "sony-2026",
+      "name": "Sony Bravia 3 II",
+      "cpuSlowdown": 7,
+      "fcp": 632,
+      "ready": 597.5
+    }
+  ],
+  "prototype": [
+    {
+      "device": "baseline",
+      "name": "No simulation (this machine)",
+      "cpuSlowdown": 1,
+      "scenario": "start",
+      "fcp": 136,
+      "ready": 102.9000000001397
+    },
+    {
+      "device": "baseline",
+      "name": "No simulation (this machine)",
+      "cpuSlowdown": 1,
+      "scenario": "latestseries",
+      "fcp": 132,
+      "ready": 100.80000000004657
+    },
+    {
+      "device": "baseline",
+      "name": "No simulation (this machine)",
+      "cpuSlowdown": 1,
+      "scenario": "latest",
+      "fcp": 136,
+      "ready": 105.20000000018626
+    },
+    {
+      "device": "baseline",
+      "name": "No simulation (this machine)",
+      "cpuSlowdown": 1,
+      "scenario": "continue",
+      "fcp": 128,
+      "ready": 96.30000000004657
+    },
+    {
+      "device": "baseline",
+      "name": "No simulation (this machine)",
+      "cpuSlowdown": 1,
+      "scenario": "live",
+      "fcp": 124,
+      "ready": 88.5
+    },
+    {
+      "device": "baseline",
+      "name": "No simulation (this machine)",
+      "cpuSlowdown": 1,
+      "scenario": "comingsoon",
+      "fcp": 144,
+      "ready": 105.9000000001397
+    },
+    {
+      "device": "samsung-2020",
+      "name": "Samsung TU7100 / TU7000",
+      "cpuSlowdown": 12,
+      "scenario": "start",
+      "fcp": 804,
+      "ready": 1650.5999999998603
+    },
+    {
+      "device": "samsung-2020",
+      "name": "Samsung TU7100 / TU7000",
+      "cpuSlowdown": 12,
+      "scenario": "latestseries",
+      "fcp": 884,
+      "ready": 1769.4000000001397
+    },
+    {
+      "device": "samsung-2020",
+      "name": "Samsung TU7100 / TU7000",
+      "cpuSlowdown": 12,
+      "scenario": "latest",
+      "fcp": 964,
+      "ready": 1688.3999999999069
+    },
+    {
+      "device": "samsung-2020",
+      "name": "Samsung TU7100 / TU7000",
+      "cpuSlowdown": 12,
+      "scenario": "continue",
+      "fcp": 812,
+      "ready": 1635.5
+    },
+    {
+      "device": "samsung-2020",
+      "name": "Samsung TU7100 / TU7000",
+      "cpuSlowdown": 12,
+      "scenario": "live",
+      "fcp": 804,
+      "ready": 1659
+    },
+    {
+      "device": "samsung-2020",
+      "name": "Samsung TU7100 / TU7000",
+      "cpuSlowdown": 12,
+      "scenario": "comingsoon",
+      "fcp": 776,
+      "ready": 1529.0999999998603
+    },
+    {
+      "device": "samsung-2021",
+      "name": "Samsung AU7100 / AU8000",
+      "cpuSlowdown": 11,
+      "scenario": "start",
+      "fcp": 780,
+      "ready": 1579.9000000001397
+    },
+    {
+      "device": "samsung-2021",
+      "name": "Samsung AU7100 / AU8000",
+      "cpuSlowdown": 11,
+      "scenario": "latestseries",
+      "fcp": 708,
+      "ready": 1301.2000000001863
+    },
+    {
+      "device": "samsung-2021",
+      "name": "Samsung AU7100 / AU8000",
+      "cpuSlowdown": 11,
+      "scenario": "latest",
+      "fcp": 728,
+      "ready": 1368.0999999998603
+    },
+    {
+      "device": "samsung-2021",
+      "name": "Samsung AU7100 / AU8000",
+      "cpuSlowdown": 11,
+      "scenario": "continue",
+      "fcp": 672,
+      "ready": 1491.1999999999534
+    },
+    {
+      "device": "samsung-2021",
+      "name": "Samsung AU7100 / AU8000",
+      "cpuSlowdown": 11,
+      "scenario": "live",
+      "fcp": 652,
+      "ready": 1694.5999999998603
+    },
+    {
+      "device": "samsung-2021",
+      "name": "Samsung AU7100 / AU8000",
+      "cpuSlowdown": 11,
+      "scenario": "comingsoon",
+      "fcp": 684,
+      "ready": 1355.6999999999534
+    },
+    {
+      "device": "samsung-2022",
+      "name": "Samsung BU8000",
+      "cpuSlowdown": 11,
+      "scenario": "start",
+      "fcp": 768,
+      "ready": 1434.2000000001863
+    },
+    {
+      "device": "samsung-2022",
+      "name": "Samsung BU8000",
+      "cpuSlowdown": 11,
+      "scenario": "latestseries",
+      "fcp": 768,
+      "ready": 1505.3000000000466
+    },
+    {
+      "device": "samsung-2022",
+      "name": "Samsung BU8000",
+      "cpuSlowdown": 11,
+      "scenario": "latest",
+      "fcp": 716,
+      "ready": 1691.9000000001397
+    },
+    {
+      "device": "samsung-2022",
+      "name": "Samsung BU8000",
+      "cpuSlowdown": 11,
+      "scenario": "continue",
+      "fcp": 724,
+      "ready": 1341.0999999998603
+    },
+    {
+      "device": "samsung-2022",
+      "name": "Samsung BU8000",
+      "cpuSlowdown": 11,
+      "scenario": "live",
+      "fcp": 736,
+      "ready": 1473.5
+    },
+    {
+      "device": "samsung-2022",
+      "name": "Samsung BU8000",
+      "cpuSlowdown": 11,
+      "scenario": "comingsoon",
+      "fcp": 772,
+      "ready": 1463.8000000000466
+    },
+    {
+      "device": "samsung-2023",
+      "name": "Samsung CU7100 / CU7000",
+      "cpuSlowdown": 11,
+      "scenario": "start",
+      "fcp": 744,
+      "ready": 1520.8000000000466
+    },
+    {
+      "device": "samsung-2023",
+      "name": "Samsung CU7100 / CU7000",
+      "cpuSlowdown": 11,
+      "scenario": "latestseries",
+      "fcp": 636,
+      "ready": 1170.7999999998137
+    },
+    {
+      "device": "samsung-2023",
+      "name": "Samsung CU7100 / CU7000",
+      "cpuSlowdown": 11,
+      "scenario": "latest",
+      "fcp": 712,
+      "ready": 1512.4000000001397
+    },
+    {
+      "device": "samsung-2023",
+      "name": "Samsung CU7100 / CU7000",
+      "cpuSlowdown": 11,
+      "scenario": "continue",
+      "fcp": 660,
+      "ready": 1379.6000000000931
+    },
+    {
+      "device": "samsung-2023",
+      "name": "Samsung CU7100 / CU7000",
+      "cpuSlowdown": 11,
+      "scenario": "live",
+      "fcp": 744,
+      "ready": 1415.1999999999534
+    },
+    {
+      "device": "samsung-2023",
+      "name": "Samsung CU7100 / CU7000",
+      "cpuSlowdown": 11,
+      "scenario": "comingsoon",
+      "fcp": 720,
+      "ready": 1467.6000000000931
+    },
+    {
+      "device": "samsung-2024",
+      "name": "Samsung DU7100 / DU7200",
+      "cpuSlowdown": 10,
+      "scenario": "start",
+      "fcp": 704,
+      "ready": 1342.8000000000466
+    },
+    {
+      "device": "samsung-2024",
+      "name": "Samsung DU7100 / DU7200",
+      "cpuSlowdown": 10,
+      "scenario": "latestseries",
+      "fcp": 672,
+      "ready": 1183.3000000000466
+    },
+    {
+      "device": "samsung-2024",
+      "name": "Samsung DU7100 / DU7200",
+      "cpuSlowdown": 10,
+      "scenario": "latest",
+      "fcp": 696,
+      "ready": 1329.5
+    },
+    {
+      "device": "samsung-2024",
+      "name": "Samsung DU7100 / DU7200",
+      "cpuSlowdown": 10,
+      "scenario": "continue",
+      "fcp": 696,
+      "ready": 1314.0999999998603
+    },
+    {
+      "device": "samsung-2024",
+      "name": "Samsung DU7100 / DU7200",
+      "cpuSlowdown": 10,
+      "scenario": "live",
+      "fcp": 804,
+      "ready": 1562.3000000000466
+    },
+    {
+      "device": "samsung-2024",
+      "name": "Samsung DU7100 / DU7200",
+      "cpuSlowdown": 10,
+      "scenario": "comingsoon",
+      "fcp": 664,
+      "ready": 1331
+    },
+    {
+      "device": "samsung-2025",
+      "name": "Samsung U8000F",
+      "cpuSlowdown": 9,
+      "scenario": "start",
+      "fcp": 696,
+      "ready": 1366.0999999998603
+    },
+    {
+      "device": "samsung-2025",
+      "name": "Samsung U8000F",
+      "cpuSlowdown": 9,
+      "scenario": "latestseries",
+      "fcp": 736,
+      "ready": 1215.2999999998137
+    },
+    {
+      "device": "samsung-2025",
+      "name": "Samsung U8000F",
+      "cpuSlowdown": 9,
+      "scenario": "latest",
+      "fcp": 608,
+      "ready": 1355.4000000001397
+    },
+    {
+      "device": "samsung-2025",
+      "name": "Samsung U8000F",
+      "cpuSlowdown": 9,
+      "scenario": "continue",
+      "fcp": 660,
+      "ready": 1470.1999999999534
+    },
+    {
+      "device": "samsung-2025",
+      "name": "Samsung U8000F",
+      "cpuSlowdown": 9,
+      "scenario": "live",
+      "fcp": 576,
+      "ready": 1200.5
+    },
+    {
+      "device": "samsung-2025",
+      "name": "Samsung U8000F",
+      "cpuSlowdown": 9,
+      "scenario": "comingsoon",
+      "fcp": 744,
+      "ready": 1249
+    },
+    {
+      "device": "samsung-2026",
+      "name": "Samsung U8000H",
+      "cpuSlowdown": 9,
+      "scenario": "start",
+      "fcp": 772,
+      "ready": 1449.4000000001397
+    },
+    {
+      "device": "samsung-2026",
+      "name": "Samsung U8000H",
+      "cpuSlowdown": 9,
+      "scenario": "latestseries",
+      "fcp": 744,
+      "ready": 1540.6999999999534
+    },
+    {
+      "device": "samsung-2026",
+      "name": "Samsung U8000H",
+      "cpuSlowdown": 9,
+      "scenario": "latest",
+      "fcp": 756,
+      "ready": 1397.3999999999069
+    },
+    {
+      "device": "samsung-2026",
+      "name": "Samsung U8000H",
+      "cpuSlowdown": 9,
+      "scenario": "continue",
+      "fcp": 816,
+      "ready": 1411.8000000000466
+    },
+    {
+      "device": "samsung-2026",
+      "name": "Samsung U8000H",
+      "cpuSlowdown": 9,
+      "scenario": "live",
+      "fcp": 728,
+      "ready": 1642.3000000000466
+    },
+    {
+      "device": "samsung-2026",
+      "name": "Samsung U8000H",
+      "cpuSlowdown": 9,
+      "scenario": "comingsoon",
+      "fcp": 908,
+      "ready": 1478.8999999999069
+    },
+    {
+      "device": "lg-2020",
+      "name": "LG UN73 / UN7300",
+      "cpuSlowdown": 12,
+      "scenario": "start",
+      "fcp": 944,
+      "ready": 1857.1999999999534
+    },
+    {
+      "device": "lg-2020",
+      "name": "LG UN73 / UN7300",
+      "cpuSlowdown": 12,
+      "scenario": "latestseries",
+      "fcp": 892,
+      "ready": 1570.5
+    },
+    {
+      "device": "lg-2020",
+      "name": "LG UN73 / UN7300",
+      "cpuSlowdown": 12,
+      "scenario": "latest",
+      "fcp": 804,
+      "ready": 1724.1999999999534
+    },
+    {
+      "device": "lg-2020",
+      "name": "LG UN73 / UN7300",
+      "cpuSlowdown": 12,
+      "scenario": "continue",
+      "fcp": 852,
+      "ready": 1715.0999999998603
+    },
+    {
+      "device": "lg-2020",
+      "name": "LG UN73 / UN7300",
+      "cpuSlowdown": 12,
+      "scenario": "live",
+      "fcp": 916,
+      "ready": 1856.0999999998603
+    },
+    {
+      "device": "lg-2020",
+      "name": "LG UN73 / UN7300",
+      "cpuSlowdown": 12,
+      "scenario": "comingsoon",
+      "fcp": 888,
+      "ready": 1655.7999999998137
+    },
+    {
+      "device": "lg-2021",
+      "name": "LG UP75 / UP7000",
+      "cpuSlowdown": 11,
+      "scenario": "start",
+      "fcp": 760,
+      "ready": 1406.8000000000466
+    },
+    {
+      "device": "lg-2021",
+      "name": "LG UP75 / UP7000",
+      "cpuSlowdown": 11,
+      "scenario": "latestseries",
+      "fcp": 760,
+      "ready": 1537.1999999999534
+    },
+    {
+      "device": "lg-2021",
+      "name": "LG UP75 / UP7000",
+      "cpuSlowdown": 11,
+      "scenario": "latest",
+      "fcp": 784,
+      "ready": 1501.5999999998603
+    },
+    {
+      "device": "lg-2021",
+      "name": "LG UP75 / UP7000",
+      "cpuSlowdown": 11,
+      "scenario": "continue",
+      "fcp": 740,
+      "ready": 1367
+    },
+    {
+      "device": "lg-2021",
+      "name": "LG UP75 / UP7000",
+      "cpuSlowdown": 11,
+      "scenario": "live",
+      "fcp": 704,
+      "ready": 1307.8000000000466
+    },
+    {
+      "device": "lg-2021",
+      "name": "LG UP75 / UP7000",
+      "cpuSlowdown": 11,
+      "scenario": "comingsoon",
+      "fcp": 716,
+      "ready": 1413.1999999999534
+    },
+    {
+      "device": "lg-2022",
+      "name": "LG UQ75",
+      "cpuSlowdown": 10,
+      "scenario": "start",
+      "fcp": 644,
+      "ready": 1454.6999999999534
+    },
+    {
+      "device": "lg-2022",
+      "name": "LG UQ75",
+      "cpuSlowdown": 10,
+      "scenario": "latestseries",
+      "fcp": 636,
+      "ready": 1227.6000000000931
+    },
+    {
+      "device": "lg-2022",
+      "name": "LG UQ75",
+      "cpuSlowdown": 10,
+      "scenario": "latest",
+      "fcp": 648,
+      "ready": 1355.0999999998603
+    },
+    {
+      "device": "lg-2022",
+      "name": "LG UQ75",
+      "cpuSlowdown": 10,
+      "scenario": "continue",
+      "fcp": 672,
+      "ready": 1390.1000000000931
+    },
+    {
+      "device": "lg-2022",
+      "name": "LG UQ75",
+      "cpuSlowdown": 10,
+      "scenario": "live",
+      "fcp": 756,
+      "ready": 1465.3000000000466
+    },
+    {
+      "device": "lg-2022",
+      "name": "LG UQ75",
+      "cpuSlowdown": 10,
+      "scenario": "comingsoon",
+      "fcp": 796,
+      "ready": 1440.5
+    },
+    {
+      "device": "lg-2023",
+      "name": "LG UR78",
+      "cpuSlowdown": 10,
+      "scenario": "start",
+      "fcp": 776,
+      "ready": 1530.1000000000931
+    },
+    {
+      "device": "lg-2023",
+      "name": "LG UR78",
+      "cpuSlowdown": 10,
+      "scenario": "latestseries",
+      "fcp": 808,
+      "ready": 1479.6999999999534
+    },
+    {
+      "device": "lg-2023",
+      "name": "LG UR78",
+      "cpuSlowdown": 10,
+      "scenario": "latest",
+      "fcp": 708,
+      "ready": 1444.4000000001397
+    },
+    {
+      "device": "lg-2023",
+      "name": "LG UR78",
+      "cpuSlowdown": 10,
+      "scenario": "continue",
+      "fcp": 792,
+      "ready": 1459.7000000001863
+    },
+    {
+      "device": "lg-2023",
+      "name": "LG UR78",
+      "cpuSlowdown": 10,
+      "scenario": "live",
+      "fcp": 696,
+      "ready": 1319.8000000000466
+    },
+    {
+      "device": "lg-2023",
+      "name": "LG UR78",
+      "cpuSlowdown": 10,
+      "scenario": "comingsoon",
+      "fcp": 784,
+      "ready": 1473.6999999999534
+    },
+    {
+      "device": "lg-2024",
+      "name": "LG UT80",
+      "cpuSlowdown": 9.5,
+      "scenario": "start",
+      "fcp": 700,
+      "ready": 1255.0999999998603
+    },
+    {
+      "device": "lg-2024",
+      "name": "LG UT80",
+      "cpuSlowdown": 9.5,
+      "scenario": "latestseries",
+      "fcp": 744,
+      "ready": 1394
+    },
+    {
+      "device": "lg-2024",
+      "name": "LG UT80",
+      "cpuSlowdown": 9.5,
+      "scenario": "latest",
+      "fcp": 720,
+      "ready": 1303.1999999999534
+    },
+    {
+      "device": "lg-2024",
+      "name": "LG UT80",
+      "cpuSlowdown": 9.5,
+      "scenario": "continue",
+      "fcp": 668,
+      "ready": 1227.5999999998603
+    },
+    {
+      "device": "lg-2024",
+      "name": "LG UT80",
+      "cpuSlowdown": 9.5,
+      "scenario": "live",
+      "fcp": 724,
+      "ready": 1443.3000000000466
+    },
+    {
+      "device": "lg-2024",
+      "name": "LG UT80",
+      "cpuSlowdown": 9.5,
+      "scenario": "comingsoon",
+      "fcp": 632,
+      "ready": 1286.5
+    },
+    {
+      "device": "lg-2025",
+      "name": "LG UA75 / UA73",
+      "cpuSlowdown": 8.5,
+      "scenario": "start",
+      "fcp": 584,
+      "ready": 1131
+    },
+    {
+      "device": "lg-2025",
+      "name": "LG UA75 / UA73",
+      "cpuSlowdown": 8.5,
+      "scenario": "latestseries",
+      "fcp": 668,
+      "ready": 1189.3000000000466
+    },
+    {
+      "device": "lg-2025",
+      "name": "LG UA75 / UA73",
+      "cpuSlowdown": 8.5,
+      "scenario": "latest",
+      "fcp": 652,
+      "ready": 1231.6999999999534
+    },
+    {
+      "device": "lg-2025",
+      "name": "LG UA75 / UA73",
+      "cpuSlowdown": 8.5,
+      "scenario": "continue",
+      "fcp": 576,
+      "ready": 1275.9000000001397
+    },
+    {
+      "device": "lg-2025",
+      "name": "LG UA75 / UA73",
+      "cpuSlowdown": 8.5,
+      "scenario": "live",
+      "fcp": 528,
+      "ready": 1077
+    },
+    {
+      "device": "lg-2025",
+      "name": "LG UA75 / UA73",
+      "cpuSlowdown": 8.5,
+      "scenario": "comingsoon",
+      "fcp": 652,
+      "ready": 1229.1999999999534
+    },
+    {
+      "device": "lg-2026",
+      "name": "LG NANO NU80",
+      "cpuSlowdown": 8,
+      "scenario": "start",
+      "fcp": 632,
+      "ready": 1228.0999999998603
+    },
+    {
+      "device": "lg-2026",
+      "name": "LG NANO NU80",
+      "cpuSlowdown": 8,
+      "scenario": "latestseries",
+      "fcp": 520,
+      "ready": 978.4000000001397
+    },
+    {
+      "device": "lg-2026",
+      "name": "LG NANO NU80",
+      "cpuSlowdown": 8,
+      "scenario": "latest",
+      "fcp": 536,
+      "ready": 1017.5999999998603
+    },
+    {
+      "device": "lg-2026",
+      "name": "LG NANO NU80",
+      "cpuSlowdown": 8,
+      "scenario": "continue",
+      "fcp": 540,
+      "ready": 1068.4000000001397
+    },
+    {
+      "device": "lg-2026",
+      "name": "LG NANO NU80",
+      "cpuSlowdown": 8,
+      "scenario": "live",
+      "fcp": 596,
+      "ready": 1158
+    },
+    {
+      "device": "lg-2026",
+      "name": "LG NANO NU80",
+      "cpuSlowdown": 8,
+      "scenario": "comingsoon",
+      "fcp": 552,
+      "ready": 1060.4000000001397
+    },
+    {
+      "device": "sony-2020",
+      "name": "Sony XH80 / X800H",
+      "cpuSlowdown": 8,
+      "scenario": "start",
+      "fcp": 528,
+      "ready": 1040.6000000000931
+    },
+    {
+      "device": "sony-2020",
+      "name": "Sony XH80 / X800H",
+      "cpuSlowdown": 8,
+      "scenario": "latestseries",
+      "fcp": 500,
+      "ready": 1157.5
+    },
+    {
+      "device": "sony-2020",
+      "name": "Sony XH80 / X800H",
+      "cpuSlowdown": 8,
+      "scenario": "latest",
+      "fcp": 648,
+      "ready": 1314.8000000000466
+    },
+    {
+      "device": "sony-2020",
+      "name": "Sony XH80 / X800H",
+      "cpuSlowdown": 8,
+      "scenario": "continue",
+      "fcp": 612,
+      "ready": 1212.1000000000931
+    },
+    {
+      "device": "sony-2020",
+      "name": "Sony XH80 / X800H",
+      "cpuSlowdown": 8,
+      "scenario": "live",
+      "fcp": 596,
+      "ready": 1098.8000000000466
+    },
+    {
+      "device": "sony-2020",
+      "name": "Sony XH80 / X800H",
+      "cpuSlowdown": 8,
+      "scenario": "comingsoon",
+      "fcp": 508,
+      "ready": 1033.8000000000466
+    },
+    {
+      "device": "sony-2021",
+      "name": "Sony X80J",
+      "cpuSlowdown": 7,
+      "scenario": "start",
+      "fcp": 608,
+      "ready": 1036.5
+    },
+    {
+      "device": "sony-2021",
+      "name": "Sony X80J",
+      "cpuSlowdown": 7,
+      "scenario": "latestseries",
+      "fcp": 508,
+      "ready": 920.9000000001397
+    },
+    {
+      "device": "sony-2021",
+      "name": "Sony X80J",
+      "cpuSlowdown": 7,
+      "scenario": "latest",
+      "fcp": 624,
+      "ready": 1156
+    },
+    {
+      "device": "sony-2021",
+      "name": "Sony X80J",
+      "cpuSlowdown": 7,
+      "scenario": "continue",
+      "fcp": 512,
+      "ready": 1246.6000000000931
+    },
+    {
+      "device": "sony-2021",
+      "name": "Sony X80J",
+      "cpuSlowdown": 7,
+      "scenario": "live",
+      "fcp": 488,
+      "ready": 1065.1999999999534
+    },
+    {
+      "device": "sony-2021",
+      "name": "Sony X80J",
+      "cpuSlowdown": 7,
+      "scenario": "comingsoon",
+      "fcp": 532,
+      "ready": 1033.9000000001397
+    },
+    {
+      "device": "sony-2022",
+      "name": "Sony X80K",
+      "cpuSlowdown": 7,
+      "scenario": "start",
+      "fcp": 508,
+      "ready": 1091.5
+    },
+    {
+      "device": "sony-2022",
+      "name": "Sony X80K",
+      "cpuSlowdown": 7,
+      "scenario": "latestseries",
+      "fcp": 540,
+      "ready": 991.6000000000931
+    },
+    {
+      "device": "sony-2022",
+      "name": "Sony X80K",
+      "cpuSlowdown": 7,
+      "scenario": "latest",
+      "fcp": 600,
+      "ready": 1038.1999999999534
+    },
+    {
+      "device": "sony-2022",
+      "name": "Sony X80K",
+      "cpuSlowdown": 7,
+      "scenario": "continue",
+      "fcp": 512,
+      "ready": 957.5
+    },
+    {
+      "device": "sony-2022",
+      "name": "Sony X80K",
+      "cpuSlowdown": 7,
+      "scenario": "live",
+      "fcp": 460,
+      "ready": 935.2000000001863
+    },
+    {
+      "device": "sony-2022",
+      "name": "Sony X80K",
+      "cpuSlowdown": 7,
+      "scenario": "comingsoon",
+      "fcp": 496,
+      "ready": 923
+    },
+    {
+      "device": "sony-2023",
+      "name": "Sony X75WL",
+      "cpuSlowdown": 9,
+      "scenario": "start",
+      "fcp": 556,
+      "ready": 1110.7999999998137
+    },
+    {
+      "device": "sony-2023",
+      "name": "Sony X75WL",
+      "cpuSlowdown": 9,
+      "scenario": "latestseries",
+      "fcp": 648,
+      "ready": 1360
+    },
+    {
+      "device": "sony-2023",
+      "name": "Sony X75WL",
+      "cpuSlowdown": 9,
+      "scenario": "latest",
+      "fcp": 736,
+      "ready": 1517.7999999998137
+    },
+    {
+      "device": "sony-2023",
+      "name": "Sony X75WL",
+      "cpuSlowdown": 9,
+      "scenario": "continue",
+      "fcp": 604,
+      "ready": 1217.5999999996275
+    },
+    {
+      "device": "sony-2023",
+      "name": "Sony X75WL",
+      "cpuSlowdown": 9,
+      "scenario": "live",
+      "fcp": 624,
+      "ready": 1286.7999999998137
+    },
+    {
+      "device": "sony-2023",
+      "name": "Sony X75WL",
+      "cpuSlowdown": 9,
+      "scenario": "comingsoon",
+      "fcp": 628,
+      "ready": 1099.8000000002794
+    },
+    {
+      "device": "sony-2024",
+      "name": "Sony Bravia 3",
+      "cpuSlowdown": 9,
+      "scenario": "start",
+      "fcp": 580,
+      "ready": 1256.6000000000931
+    },
+    {
+      "device": "sony-2024",
+      "name": "Sony Bravia 3",
+      "cpuSlowdown": 9,
+      "scenario": "latestseries",
+      "fcp": 664,
+      "ready": 1181.2999999998137
+    },
+    {
+      "device": "sony-2024",
+      "name": "Sony Bravia 3",
+      "cpuSlowdown": 9,
+      "scenario": "latest",
+      "fcp": 668,
+      "ready": 1365.5
+    },
+    {
+      "device": "sony-2024",
+      "name": "Sony Bravia 3",
+      "cpuSlowdown": 9,
+      "scenario": "continue",
+      "fcp": 624,
+      "ready": 1121.0999999996275
+    },
+    {
+      "device": "sony-2024",
+      "name": "Sony Bravia 3",
+      "cpuSlowdown": 9,
+      "scenario": "live",
+      "fcp": 612,
+      "ready": 1186.3000000002794
+    },
+    {
+      "device": "sony-2024",
+      "name": "Sony Bravia 3",
+      "cpuSlowdown": 9,
+      "scenario": "comingsoon",
+      "fcp": 660,
+      "ready": 1480
+    },
+    {
+      "device": "sony-2025",
+      "name": "Sony Bravia 2 II",
+      "cpuSlowdown": 10,
+      "scenario": "start",
+      "fcp": 712,
+      "ready": 1269.6000000000931
+    },
+    {
+      "device": "sony-2025",
+      "name": "Sony Bravia 2 II",
+      "cpuSlowdown": 10,
+      "scenario": "latestseries",
+      "fcp": 804,
+      "ready": 1418.2000000001863
+    },
+    {
+      "device": "sony-2025",
+      "name": "Sony Bravia 2 II",
+      "cpuSlowdown": 10,
+      "scenario": "latest",
+      "fcp": 656,
+      "ready": 1442.6999999997206
+    },
+    {
+      "device": "sony-2025",
+      "name": "Sony Bravia 2 II",
+      "cpuSlowdown": 10,
+      "scenario": "continue",
+      "fcp": 652,
+      "ready": 1541.5
+    },
+    {
+      "device": "sony-2025",
+      "name": "Sony Bravia 2 II",
+      "cpuSlowdown": 10,
+      "scenario": "live",
+      "fcp": 612,
+      "ready": 1298.8999999999069
+    },
+    {
+      "device": "sony-2025",
+      "name": "Sony Bravia 2 II",
+      "cpuSlowdown": 10,
+      "scenario": "comingsoon",
+      "fcp": 716,
+      "ready": 1361.3999999999069
+    },
+    {
+      "device": "sony-2026",
+      "name": "Sony Bravia 3 II",
+      "cpuSlowdown": 7,
+      "scenario": "start",
+      "fcp": 460,
+      "ready": 813.5
+    },
+    {
+      "device": "sony-2026",
+      "name": "Sony Bravia 3 II",
+      "cpuSlowdown": 7,
+      "scenario": "latestseries",
+      "fcp": 468,
+      "ready": 891.1000000000931
+    },
+    {
+      "device": "sony-2026",
+      "name": "Sony Bravia 3 II",
+      "cpuSlowdown": 7,
+      "scenario": "latest",
+      "fcp": 500,
+      "ready": 875.8999999999069
+    },
+    {
+      "device": "sony-2026",
+      "name": "Sony Bravia 3 II",
+      "cpuSlowdown": 7,
+      "scenario": "continue",
+      "fcp": 480,
+      "ready": 883.2000000001863
+    },
+    {
+      "device": "sony-2026",
+      "name": "Sony Bravia 3 II",
+      "cpuSlowdown": 7,
+      "scenario": "live",
+      "fcp": 428,
+      "ready": 861
+    },
+    {
+      "device": "sony-2026",
+      "name": "Sony Bravia 3 II",
+      "cpuSlowdown": 7,
+      "scenario": "comingsoon",
+      "fcp": 468,
+      "ready": 797.3999999999069
+    }
+  ]
+}
