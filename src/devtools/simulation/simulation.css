@@ -35,3 +35,4 @@
   pointer-events: none;
 }
 .sim-hud strong { color: #deeb52; font-weight: 700; }
+.sim-hud-warn { color: #ff576d; font-weight: 700; }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { DeviceProfile } from './devices';
+import { checkCompat } from './compat';
 import './simulation.css';
 
 /**
@@ -58,11 +59,24 @@ export function DeviceSimulator({ device }: { device: DeviceProfile }) {
   return (
     <div className="sim-hud" role="status" aria-live="off">
       <strong>Simulating {device.name} – {device.year}</strong>
-      <span>{device.cpu} · {device.gpu} · {device.ramGB} GB · {device.os}</span>
+      <span>{device.cpu} · {device.gpu} · {device.ramGB ? `${device.ramGB} GB` : 'RAM unknown'} · {device.os}</span>
+      <CompatLine chromium={device.chromium} />
       <span>
         Target {device.uiFps} fps · measured {fps ?? '…'} fps · +{device.inputLatencyMs} ms input
         {device.dropKeys ? ' · drops presses while busy' : ''} · GPU {device.gpuTier}
       </span>
     </div>
+  );
+}
+
+function CompatLine({ chromium }: { chromium?: number }) {
+  const { checked, missing } = checkCompat(chromium);
+  if (!checked) return <span>Engine not fixed — compatibility not checked</span>;
+  const breaks = missing.filter((f) => f.severity === 'breaks').length;
+  if (!missing.length) return <span>Chromium {chromium} · all page features supported</span>;
+  return (
+    <span className={breaks ? 'sim-hud-warn' : undefined}>
+      Chromium {chromium} · {breaks ? `${breaks} feature(s) break the page` : `${missing.length} feature(s) degraded`} — see Q panel
+    </span>
   );
 }

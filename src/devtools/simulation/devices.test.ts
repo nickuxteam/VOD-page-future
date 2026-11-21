@@ -25,6 +25,13 @@ describe('device profiles', () => {
     expect(pro.uiFps).toBeGreaterThan(ps4.uiFps);
   });
 
+  it('covers Samsung, LG and Sony for every model year 2020–2026', () => {
+    for (const family of ['Samsung TV', 'LG TV', 'Sony Bravia TV'] as const) {
+      const years = DEVICES.filter((d) => d.family === family).map((d) => d.year).sort();
+      expect(years).toEqual([2020, 2021, 2022, 2023, 2024, 2025, 2026]);
+    }
+  });
+
   it('ranks the oldest stick slowest and the 4K Max (2nd Gen) fastest', () => {
     const byFps = [...DEVICES].sort((a, b) => a.uiFps - b.uiFps);
     expect(byFps[0].id).toBe('ftv-stick-1');

@@ -14,6 +14,7 @@ Everything in `src/devtools/` is internal tooling for testing the prototype. It 
 | `config/ConfigPanel.tsx` | The Q panel and its device dropdown (grouped Fire TV Stick / PlayStation) |
 | `simulation/devices.ts` | Device profiles (hardware + estimated simulation values) |
 | `simulation/DeviceSimulator.tsx` | Frame-rate cap, GPU-effect reduction, HUD |
+| `simulation/compat.ts` | Web-platform features the page needs vs each device's Chromium version |
 | `scripts/measure-load.mjs` | Page-load timing for every device (see below) |
 
 ## What is simulated
@@ -65,6 +66,59 @@ rendering cheap, but its slow Jaguar CPU cores make JavaScript-heavy work the bo
 - **1st Gen CPU clock:** 1.0 GHz in most sources, though AFTVnews suspected 1.2 GHz.
 - **4K Max (2021) CPU cores:** reported as both A53 and A55.
 - **4K (2nd Gen) GPU clock:** Amazon's English and Japanese pages may differ.
+
+## TVs: best-selling Samsung, LG and Sony series by model year
+
+**What "best-selling" means here.** None of the brands publishes unit sales per model, so each year's pick is the
+entry-level, high-volume series. Each pick is backed by retail signals: Amazon Best Seller badges, "bought in past month"
+counts, retailer wording, review volume, and Which?/Expert Reviews picks. The evidence strength (`moderate`, `weak` or
+`inferred`) is shown in the Q panel. Treat these picks as representative of the volume market, not as audited
+bestsellers.
+
+**Web engine matters more than speed on TVs.** Samsung (Tizen) and LG (webOS) ship a fixed Chromium version per model
+year, and older ones lack features this page uses (`compat.ts`). Sony uses the Android System WebView, which updates
+separately, so no fixed engine is assumed.
+
+| Year | Samsung (Tizen · Chromium) | LG (webOS · Chromium) | Sony (Google/Android TV) |
+| --- | --- | --- | --- |
+| 2020 | TU7100 / TU7000 · Tizen 5.5 · **69** | UN73 / UN7300 · webOS 5.0 · **68** | XH80 / X800H · MT5893, 4× A73 1.5 GHz, 2 GB |
+| 2021 | AU7100 / AU8000 · Tizen 6.0 · **76** | UP75 / UP7000 · webOS 6.0 · **79** | X80J · MT5895, 4× A73 1.8 GHz, 3–4 GB |
+| 2022 | BU8000 · Tizen 6.5 · **85** | UQ75 · webOS 22 · **87** | X80K · MT5895, Mali-G52, 3–4 GB |
+| 2023 | CU7100 / CU7000 · Tizen 7.0 · **94** | UR78 · webOS 23 · **94** | X75WL · SoC unknown |
+| 2024 | DU7100 / DU7200 · Tizen 8.0 · **108** | UT80 · webOS 24 · **108** | Bravia 3 · SoC unknown |
+| 2025 | U8000F · Tizen 9.0 · **120** | UA75 / UA73 · webOS 25 · **120** | Bravia 2 II · SoC unknown, 2 GB |
+| 2026 | U8000H · Tizen 10.0 · **130** (unconfirmed on device) | NANO NU80 · webOS 26 · **132** | Bravia 3 II · Pentonic 800 (single source) |
+
+**Upgrades:** Samsung 2023+ sets and LG 2022+ sets can be upgraded to a newer OS, so the engine shown is the minimum.
+
+**CPU/GPU/RAM:** Samsung and LG don't publish core counts, clocks, GPU or RAM for these chips. The simulation values for
+TVs are therefore rougher estimates than the Fire TV ones. They're based on the platform family (e.g. Samsung's
+Kant-SU2e runs from 2021 to 2023) and public user reports.
+
+**Sources:**
+
+- Samsung
+  - [Tizen/Chromium mapping (tizen-sim)](https://github.com/lucaskfp/tizen-sim)
+  - [Samsung TV extension release history](https://developer.samsung.com/smarttv/develop/tools/tv-extension/release-history.html)
+  - [Kant-SU2 support page](https://www.samsung.com/latin_en/support/tv-audio-video/troubleshoot-usb-error-messages-when-updating-kant-su2-and-kant-s2-tv-models/)
+  - [TechRadar on the DU7200](https://www.techradar.com/televisions/samsungs-best-selling-4k-crystal-tv-drops-to-an-unbelievably-cheap-price-at-walmart)
+  - [Expert Reviews: best Samsung TV](https://www.expertreviews.co.uk/tvs/1416414/best-samsung-tv)
+  - [RTINGS U8000F review](https://www.rtings.com/tv/reviews/samsung/u8000f)
+  - [AVForums: Samsung 2026 UK line-up](https://www.avforums.com/news/samsung-confirms-its-2026-uk-tv-line-up-and-pricing.23563/)
+- LG
+  - [LG web engine table](https://webostv.developer.lge.com/develop/specifications/web-api-and-web-engine) (and a [copy on GitHub](https://github.com/gprot42/webos-terminal))
+  - [LG UK UT80](https://www.lg.com/uk/tvs-soundbars/4k-uhd-tvs/43ut80006la/)
+  - [LG UK UR78](https://www.lg.com/uk/tvs-soundbars/smart-tvs/43ur78006lk/)
+  - [LG UK NU80](https://www.lg.com/uk/tvs-soundbars/nano-4k-uhd/43nu800b6lc/)
+  - [Amazon UK UA75](https://www.amazon.co.uk/lg-uhd-ua75/s?k=lg+uhd+ua75)
+  - [Best Buy UQ75 reviews](https://www.bestbuy.com/site/reviews/lg-65-class-uq75-series-led-4k-uhd-smart-webos-tv-2022/6501938)
+- Sony
+  - [X80J specs](https://www.displayspecifications.com/en/model/2df92496)
+  - [X80K specs](https://www.displayspecifications.com/en/model/19f32a3b)
+  - [Which? KD-55X75WL review](https://www.which.co.uk/reviews/televisions/sony-kd55x75wl)
+  - [Android Police on the Android TV 14 update](https://www.androidpolice.com/android-tv-14-sony-bravia-realtek/)
+  - [What Hi-Fi: Sony 2026 line-up](https://www.whathifi.com/tv-home-cinema/televisions/sony-2026-tv-lineup-everything-you-need-to-know-about-the-new-bravia-tvs)
+
 
 ## Load-time measurement
 

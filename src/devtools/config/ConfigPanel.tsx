@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { DEVICES, DEVICE_FAMILIES, NO_SIMULATION, deviceLabel, findDevice } from '../simulation/devices';
+import { checkCompat } from '../simulation/compat';
 import './ConfigPanel.css';
 
 export interface ConfigPanelProps {
@@ -18,6 +19,7 @@ export interface ConfigPanelProps {
 export function ConfigPanel({ open, onClose, deviceId, onDeviceChange }: ConfigPanelProps) {
   const selectRef = useRef<HTMLSelectElement>(null);
   const device = findDevice(deviceId);
+  const compat = checkCompat(device?.chromium);
 
   useEffect(() => {
     if (open) selectRef.current?.focus();
@@ -54,14 +56,40 @@ export function ConfigPanel({ open, onClose, deviceId, onDeviceChange }: ConfigP
             <dt>SoC</dt><dd>{device.soc}</dd>
             <dt>CPU</dt><dd>{device.cpu}</dd>
             <dt>GPU</dt><dd>{device.gpu}</dd>
-            <dt>RAM</dt><dd>{device.ramGB} GB</dd>
+            <dt>RAM</dt><dd>{device.ramGB ? `${device.ramGB} GB` : 'unknown'}</dd>
             <dt>Video</dt><dd>{device.video}</dd>
             <dt>OS</dt><dd>{device.os}</dd>
+            <dt>Web engine</dt>
+            <dd>
+              {device.chromium ? `Chromium ${device.chromium}` : 'Not fixed / unknown'}
+              {device.engineNote && <span className="cfg-sub">{device.engineNote}</span>}
+            </dd>
+            <dt>Compatibility</dt>
+            <dd>
+              {!compat.checked && 'Not checked — engine version unknown. Test on the device.'}
+              {compat.checked && compat.missing.length === 0 && 'All features the page uses are supported.'}
+              {compat.missing.length > 0 && (
+                <ul className="cfg-compat">
+                  {compat.missing.map((f) => (
+                    <li key={f.id} className={`cfg-sev-${f.severity}`}>
+                      <strong>{f.severity === 'breaks' ? 'Breaks' : f.severity === 'degrades' ? 'Degrades' : 'Cosmetic'}:</strong>{' '}
+                      {f.name} (needs Chromium {f.minChromium}). {f.impact}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </dd>
             <dt>Simulated</dt>
             <dd>
               ~{device.uiFps} fps UI · +{device.inputLatencyMs} ms remote lag
               {device.dropKeys ? ' · drops presses while busy' : ''} · {device.gpuTier}-end GPU effects
             </dd>
+            {device.bestSeller && (
+              <>
+                <dt>Best seller?</dt>
+                <dd>{device.bestSeller.evidence} <span className="cfg-sub">Evidence: {device.bestSeller.confidence}</span></dd>
+              </>
+            )}
             {device.notes && (<><dt>Notes</dt><dd>{device.notes}</dd></>)}
           </dl>
         ) : (

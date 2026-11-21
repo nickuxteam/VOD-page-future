@@ -12,6 +12,7 @@
  *   npm run build && npx vite preview --port 4173 &
  *   node --experimental-strip-types src/devtools/scripts/measure-load.mjs \
  *        --react http://localhost:4173/ [--prototype /path/to/index.html] [--runs 3] [--out results.json]
+ *        [--family "Samsung TV,LG TV,Sony Bravia TV"]
  *
  * Each measurement is preceded by one discarded warm-up load (cold caches).
  * Metrics (median of N runs, ms from navigation start):
@@ -43,7 +44,10 @@ const SCENARIOS = [
   { id: 'comingsoon', label: 'Coming soon', ready: 'Watch trailer' },
 ];
 
-const TARGETS = [{ id: 'baseline', name: 'No simulation (this machine)', cpuSlowdown: 1 }, ...DEVICES];
+const BASELINE = { id: 'baseline', name: 'No simulation (this machine)', cpuSlowdown: 1 };
+/** --family "Samsung TV,LG TV" limits the run to those device families (baseline always included). */
+const families = args.family ? args.family.split(',').map((f) => f.trim()) : null;
+const TARGETS = [BASELINE, ...DEVICES.filter((d) => !families || families.includes(d.family))];
 
 /** Injected before any page script: records FCP and the "ready" frame. */
 const probe = (readyText) => {
