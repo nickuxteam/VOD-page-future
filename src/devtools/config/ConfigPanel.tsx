@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { FIRE_TV_STICKS, NO_SIMULATION, deviceLabel, findDevice } from '../simulation/devices';
+import { DEVICES, DEVICE_FAMILIES, NO_SIMULATION, deviceLabel, findDevice } from '../simulation/devices';
 import './ConfigPanel.css';
 
 export interface ConfigPanelProps {
@@ -11,8 +11,9 @@ export interface ConfigPanelProps {
 }
 
 /**
- * Config panel (toggle with Q, as in the prototype). Hosts the device
- * simulation dropdown; defaults to "No simulation".
+ * DEV TOOL — not part of the handover. Config panel (toggle with Q, as in
+ * the prototype). Hosts the device simulation dropdown; defaults to
+ * "No simulation".
  */
 export function ConfigPanel({ open, onClose, deviceId, onDeviceChange }: ConfigPanelProps) {
   const selectRef = useRef<HTMLSelectElement>(null);
@@ -38,11 +39,13 @@ export function ConfigPanel({ open, onClose, deviceId, onDeviceChange }: ConfigP
             onChange={(e) => onDeviceChange(e.target.value)}
           >
             <option value={NO_SIMULATION}>No simulation</option>
-            <optgroup label="Amazon Fire TV Stick">
-              {FIRE_TV_STICKS.map((d) => (
-                <option key={d.id} value={d.id}>{deviceLabel(d)}</option>
-              ))}
-            </optgroup>
+            {DEVICE_FAMILIES.map((family) => (
+              <optgroup key={family} label={family}>
+                {DEVICES.filter((d) => d.family === family).map((d) => (
+                  <option key={d.id} value={d.id}>{deviceLabel(d)}</option>
+                ))}
+              </optgroup>
+            ))}
           </select>
         </label>
 

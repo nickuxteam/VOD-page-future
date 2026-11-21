@@ -3,6 +3,7 @@ import type { DeviceProfile } from './devices';
 import './simulation.css';
 
 /**
+ * DEV TOOL — not part of the handover.
  * Applies a device profile to the page while it is mounted:
  *
  *  1. CPU — a requestAnimationFrame loop holds the main thread until each
@@ -14,7 +15,7 @@ import './simulation.css';
  *  3. HUD — a small overlay outside the TV canvas showing the device and the
  *     measured frame rate.
  *
- * Input latency / dropped presses are applied by VodTabsPage via props.
+ * Input latency / dropped presses are applied by DevToolsShell.
  */
 export function DeviceSimulator({ device }: { device: DeviceProfile }) {
   const [fps, setFps] = useState<number | null>(null);
