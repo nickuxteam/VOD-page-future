@@ -208,7 +208,7 @@ const PROTO_STATE = () => {
 };
 
 /* ------------------------------------------------------------ runner */
-async function openPage(browser, url, device, { simulate }) {
+async function openPage(browser, url, device, { simulate, seed }) {
   const context = await browser.newContext({ viewport: { width: 1920, height: 1080 } });
   const page = await context.newPage();
   const consoleErrors = [];
@@ -219,6 +219,7 @@ async function openPage(browser, url, device, { simulate }) {
     if (m.type() === 'info') logs.push(m.text());
   });
   await page.addInitScript((id) => { try { localStorage.setItem('vod.simulation.device', id); } catch { /* file:// */ } }, simulate ? device.id : 'none');
+  if (seed) await page.addInitScript(seed.fn, seed.arg);
   await page.addInitScript(HELPERS);
   if (device.chromium && device.chromium < 84) await page.addInitScript(NO_FLEX_GAP);
   const cdp = await context.newCDPSession(page);
@@ -291,9 +292,13 @@ async function runRapidInput(browser, device) {
 }
 
 async function runScenario(browser, device, sc) {
-  const { context, page, consoleErrors } = await openPage(browser, 'file://' + args.prototype, device, { simulate: false });
-  await page.evaluate((id) => { localStorage.clear(); localStorage.setItem('itvx.pageLogic.scenario', id); }, sc.id);
-  await page.reload();
+  // Seed the scenario before the first load. (Clearing localStorage then reloading raced:
+  // Chromium sometimes served the reload from the pre-write storage, so the scenario was lost.)
+  const seed = { arg: sc.id, fn: (id) => {
+    if (sessionStorage.getItem('__seeded')) return;
+    localStorage.clear(); localStorage.setItem('itvx.pageLogic.scenario', id); sessionStorage.setItem('__seeded', '1');
+  } };
+  const { context, page, consoleErrors } = await openPage(browser, 'file://' + args.prototype, device, { simulate: false, seed });
   const failures = [];
   try {
     await page.waitForFunction((l) => document.getElementById('ctaPlayLabel')?.textContent.trim() === l, sc.label, { timeout: 60_000, polling: 50 })

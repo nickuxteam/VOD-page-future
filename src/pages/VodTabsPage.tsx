@@ -88,9 +88,12 @@ export function VodTabsPage({
 
   const episodes = nav.activeSeries != null ? episodesBySeries[nav.activeSeries] ?? [] : [];
   const heroEpisode = episodes[nav.episodeIndex];
-  const primaryLabel = heroEpisode
-    ? `Start watching - S${heroEpisode.series}:E${heroEpisode.episode}`
-    : 'Start watching';
+  // Films have no episodes: the primary reads "Watch film" (spec §7.1).
+  const primaryLabel = p.seriesCount === 0
+    ? 'Watch film'
+    : heroEpisode
+      ? `Start watching - S${heroEpisode.series}:E${heroEpisode.episode}`
+      : 'Start watching';
 
   const [listed, setListed] = useState(false);
   const ctas: Cta[] = useMemo(() => [
