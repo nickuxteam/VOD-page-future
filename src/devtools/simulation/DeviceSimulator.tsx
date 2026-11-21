@@ -42,8 +42,8 @@ export function DeviceSimulator({ device }: { device: DeviceProfile }) {
     const root = document.documentElement;
     const classes = ['sim-active', `sim-gpu-${device.gpuTier}`];
     root.classList.add(...classes);
-    // Typical UI transition is ~330ms → number of frames the device draws in it.
-    root.style.setProperty('--sim-steps', String(Math.max(2, Math.round(device.uiFps * 0.33))));
+    // All UI transitions use motion token 1 (250ms) → frames the device draws in one.
+    root.style.setProperty('--sim-steps', String(Math.max(2, Math.round(device.uiFps * 0.25))));
 
     const budget = 1000 / device.uiFps;
     let raf = 0;

@@ -117,6 +117,11 @@
   --grid-tile-w: 234px;
   --grid-tile-h: 350px; /* ctvcomponents Portrait tile: 234 × 350 */
   --info-panel-w: 380px;
+  /* Motion — Figma motion token 1 (the fastest): duration-01 + easing-03.
+     Every UI transition uses it; see docs/VOD-TABS-SPEC.md §5. */
+  --motion-duration-01: 250ms;
+  --motion-easing-03: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-1: var(--motion-duration-01) var(--motion-easing-03);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }

@@ -6,12 +6,12 @@
    down into the episode rail), the hero collapses to 200px so the
    tabs + episode rail get the bulk of the stage. Animates smoothly
    so the transition feels intentional. */
-.vod-hero { transition: height 320ms cubic-bezier(.2,.8,.2,1),
-                        padding 320ms cubic-bezier(.2,.8,.2,1),
-                        opacity 320ms cubic-bezier(.2,.8,.2,1); }
-.hero    { transition: background-image 600ms ease,
-                       opacity 600ms ease,
-                       height 320ms cubic-bezier(.2,.8,.2,1); }
+.vod-hero { transition: height var(--motion-1),
+                        padding var(--motion-1),
+                        opacity var(--motion-1); }
+.hero    { transition: background-image var(--motion-1),
+                       opacity var(--motion-1),
+                       height var(--motion-1); }
 
 /* Collapsed view: no title, no metadata — tabs move up to the top. */
 .app.series-focus .vod-hero { height: 48px; padding-top: 0; padding-bottom: 0; margin-bottom: 16px; }
@@ -53,14 +53,14 @@
 .app.discover-focus .vod-hero { height: 0; padding: 0; overflow: hidden; }
 .app.discover-focus .vod-hero > * { display: none; }
 .app.discover-focus .series-tabs-shell { height: 0; padding: 0; overflow: hidden; }
-.series-tabs-shell { transition: height 320ms cubic-bezier(.2,.8,.2,1),
-                                 padding 320ms cubic-bezier(.2,.8,.2,1); }
+.series-tabs-shell { transition: height var(--motion-1),
+                                 padding var(--motion-1); }
 /* Episode rail: half-up peek when discover is focused. Negative
    margin pulls everything below it up by the same amount, so the
    discover section rises to fill the freed space. */
 .episode-rail-shell {
-  transition: margin 320ms cubic-bezier(.2,.8,.2,1),
-              opacity 220ms ease;
+  transition: margin var(--motion-1),
+              opacity var(--motion-1);
 }
 .app.discover-focus .episode-rail-shell {
   margin-top: calc((var(--ep-tile-h) + 120px) * -0.5);
@@ -70,5 +70,5 @@
    drops to 80% opacity so the focused row reads as the live one. */
 .episode-rail-shell.dim,
 .prompt-area.dim { opacity: 0.8; }
-.prompt-area { transition: opacity 220ms ease, transform 400ms cubic-bezier(0.33, 0, 0.2, 1); }
+.prompt-area { transition: opacity var(--motion-1), transform var(--motion-1); }
 

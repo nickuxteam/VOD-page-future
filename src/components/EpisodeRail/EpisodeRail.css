@@ -36,7 +36,7 @@
   display: flex;
   gap: 18px;   /* Figma Episode slider: 486 tiles at 504px pitch */
   will-change: transform;
-  transition: transform 500ms cubic-bezier(.6,0,0,1);   /* FE cp_tile-slider-ctv--standard */
+  transition: transform var(--motion-1);   /* motion token 1 (FE cp_tile-slider-ctv--standard was 500ms) */
 }
 .episode-tile-wrap {
   flex: 0 0 var(--ep-tile-w);
@@ -53,7 +53,7 @@
   background-position: center;
   position: relative;
   overflow: hidden;
-  transition: box-shadow 180ms ease, background-color 220ms ease;
+  transition: box-shadow var(--motion-1), background-color var(--motion-1);
   box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 .episode-tile.loading::before {
@@ -200,7 +200,7 @@
   pointer-events: none;
   z-index: 4;
   opacity: 0;
-  transition: opacity 160ms ease;
+  transition: opacity var(--motion-1);
 }
 .episode-rail-clip-shell.has-focus .episode-tile-focus-ring { opacity: 1; }
 /* While an episode tile owns focus, its siblings dim to 90%. */

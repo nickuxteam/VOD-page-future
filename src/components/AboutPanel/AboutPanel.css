@@ -14,7 +14,7 @@
   width: 1696px; max-width: 100%; box-sizing: border-box;
   background: #102533; border-radius: 8px; padding: 56px;
   display: flex; gap: 56px; align-items: flex-start;
-  transition: box-shadow 160ms ease;
+  transition: box-shadow var(--motion-1);
 }
 .about-panel.focused { box-shadow: inset 0 0 0 2px #FFFFFF, 0 0 20px 0 rgba(255,255,255,0.4); }
 .ab-poster { width: 234px; height: 350px; flex: 0 0 auto; border-radius: var(--radius-03); background: #0B1A24 center / cover no-repeat; box-shadow: 1px 4px 2px 0 rgba(0,0,0,0.5); }

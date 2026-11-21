@@ -22,7 +22,7 @@
   align-items: center;
   gap: var(--spacing-04);   /* Figma Top Tabs gap 12 */
   will-change: transform;
-  transition: transform 250ms cubic-bezier(.8,0,0,1);   /* FE cp_tab-group__list */
+  transition: transform var(--motion-1);   /* motion token 1 (FE cp_tab-group__list easing was .8,0,0,1) */
 }
 /* Tabs — h64 to match the hero CTA pills; radius 4 all round,
    width hugs the label, padding 0 24, Call to Action/Bold label. */
@@ -51,9 +51,9 @@
   white-space: nowrap;
   opacity: 1;
   position: relative;
-  transition: background 600ms cubic-bezier(0.33, 0, 0.2, 1),
-              color 600ms cubic-bezier(0.33, 0, 0.2, 1),
-              opacity 180ms ease;
+  transition: background var(--motion-1),
+              color var(--motion-1),
+              opacity var(--motion-1);
 }
 /* Active-tab underline — drawn as a 2px lime accent bar flush to the
    bottom edge of the tab. Hidden by default, revealed for .active. */
@@ -67,7 +67,7 @@
   background: var(--brand-primary);
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 600ms cubic-bezier(0.33, 0, 0.2, 1);
+  transition: transform var(--motion-1);
 }
 .series-tab.active::after { transform: scaleX(1); }
 
@@ -77,12 +77,12 @@
   padding: 0 var(--spacing-06);
   /* Animate the width swap so the tab grows smoothly into "SERIES X". */
   /* Motion token 1 — duration-01 (250ms) with easing-03. */
-  transition: background 250ms cubic-bezier(0.4,0,0.2,1),
-              color 250ms cubic-bezier(0.4,0,0.2,1),
-              opacity 250ms cubic-bezier(0.4,0,0.2,1),
-              width 250ms cubic-bezier(0.4,0,0.2,1),
-              min-width 250ms cubic-bezier(0.4,0,0.2,1),
-              padding 250ms cubic-bezier(0.4,0,0.2,1);
+  transition: background var(--motion-1),
+              color var(--motion-1),
+              opacity var(--motion-1),
+              width var(--motion-1),
+              min-width var(--motion-1),
+              padding var(--motion-1);
 }
 /* Numeric tabs expand to fit the "SERIES X" label whenever they
    carry the .expanded class. The renderer applies that class to the
@@ -117,12 +117,12 @@
   background: transparent;
   opacity: 1;
   /* Same expand/collapse motion as the numeric chips — motion token 1. */
-  transition: background 250ms cubic-bezier(0.4,0,0.2,1),
-              color 250ms cubic-bezier(0.4,0,0.2,1),
-              opacity 250ms cubic-bezier(0.4,0,0.2,1),
-              width 250ms cubic-bezier(0.4,0,0.2,1),
-              min-width 250ms cubic-bezier(0.4,0,0.2,1),
-              padding 250ms cubic-bezier(0.4,0,0.2,1);
+  transition: background var(--motion-1),
+              color var(--motion-1),
+              opacity var(--motion-1),
+              width var(--motion-1),
+              min-width var(--motion-1),
+              padding var(--motion-1);
 }
 .series-tab.upcoming-tab .up-spark { flex-shrink: 0; display: block; }
 .series-tab.upcoming-tab .up-spark path { fill: url(#upSparkGrad); }
@@ -155,7 +155,7 @@
 /* Chevron sits on the RIGHT of the label. */
 .series-tab.dropdown-trigger .dd-chevron { order: 2; }
 .dd-chevron { width: 20px; height: 20px; flex-shrink: 0;
-  transition: transform 300ms cubic-bezier(0.4,0,0.2,1); }
+  transition: transform var(--motion-1); }
 .series-tab.dropdown-trigger.open .dd-chevron { transform: rotate(180deg); }
 .series-tabs-shell.dd-open { overflow: visible; z-index: 60; height: 190px; }
 /* Sub nav open: shell grows so the episode rail sits BELOW the sub nav
@@ -180,7 +180,7 @@
 .series-dd-menu.open { display: block; }
 .series-dd-track {
   display: flex; flex-direction: row; gap: 8px;
-  transition: transform 300ms cubic-bezier(0.33,0,0.2,1);
+  transition: transform var(--motion-1);
 }
 .series-dd-item {
   flex: 0 0 auto;
@@ -198,9 +198,9 @@
   white-space: nowrap;
   position: relative;
   overflow: hidden;
-  transition: background 300ms cubic-bezier(0.33,0,0.2,1),
-              color 300ms cubic-bezier(0.33,0,0.2,1),
-              width 250ms cubic-bezier(0.4,0,0.2,1);
+  transition: background var(--motion-1),
+              color var(--motion-1),
+              width var(--motion-1);
 }
 /* Focused / active chips expand to the full "SERIES X" label. */
 .series-dd-item.expanded { width: auto; padding: 0 var(--spacing-06); }

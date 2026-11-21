@@ -9,7 +9,7 @@
   display: none;
 }
 .trailer-shell.show { display: block; }
-.trailer-shell, .about-shell { transition: margin 320ms cubic-bezier(.2,.8,.2,1); }
+.trailer-shell, .about-shell { transition: margin var(--motion-1); }
 .trailer-tile {
   position: relative;
   width: 720px;
@@ -19,7 +19,7 @@
   background: var(--bg-raised, #163f59);
   border: 3px solid transparent;
   box-sizing: border-box;
-  transition: border-color 140ms ease;
+  transition: border-color var(--motion-1);
 }
 .trailer-tile.focused { border-color: #ffffff; }
 /* Trailer rail — episode-slider layout: one wrap per series trailer,
@@ -28,7 +28,7 @@
   display: flex;
   gap: var(--rail-gap);
   will-change: transform;
-  transition: transform 380ms cubic-bezier(.2,.8,.2,1);
+  transition: transform var(--motion-1);
 }
 .trailer-tile-wrap {
   flex: 0 0 var(--ep-tile-w);

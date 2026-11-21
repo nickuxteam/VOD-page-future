@@ -231,41 +231,49 @@ last nav state from `localStorage` after a reload ◻.
 
 ## 5. Animation
 
-All values are copied from the prototype's CSS. FE reference names are in brackets. ✅ unless marked ◻.
+**Every UI transition uses Figma motion token 1, the fastest token: `duration-01` 250ms with `easing-03`
+`cubic-bezier(0.4, 0, 0.2, 1)`.** It's defined once in `src/styles/tokens.css` as `--motion-duration-01`,
+`--motion-easing-03` and the shorthand `--motion-1`. Every `transition` in the components uses `var(--motion-1)`, so
+changing the token there retimes the whole page. ✅ unless marked ◻.
 
-| Element | Property | Duration | Easing |
+| Element | Property | Motion | Prototype value (before) |
 | --- | --- | --- | --- |
-| Tab track slide | transform | 250ms | `cubic-bezier(.8,0,0,1)` [cp_tab-group__list] |
-| Tab focus fill / text | background, color | 600ms | `cubic-bezier(.33,0,.2,1)` |
-| Active-tab underline | `transform: scaleX(0→1)`, origin centre | 600ms | `cubic-bezier(.33,0,.2,1)` |
-| Numeric chip expand ("2" → "SERIES 2") | width, min-width, padding, bg, color | 250ms | `cubic-bezier(.4,0,.2,1)` (motion token 1) |
-| Sub nav chevron | `rotate(0→180deg)` when open | 300ms | `cubic-bezier(.4,0,.2,1)` |
-| Sub nav chip track | transform | 300ms | `cubic-bezier(.33,0,.2,1)` |
-| Episode rail track | transform | 500ms | `cubic-bezier(.6,0,0,1)` [cp_tile-slider-ctv--standard] |
-| Related rail track | transform | 330ms | `cubic-bezier(.6,0,0,1)` [cp_tile-slider-ctv--metadata-area] |
-| Tile fade (left of view / sibling dim) | opacity | 330ms | `cubic-bezier(.6,0,0,1)` |
-| Rail heading 50% → 100% | opacity | 330ms | `cubic-bezier(.6,0,0,1)` |
-| Focus ring show/hide | opacity | 160ms | ease |
-| Tile focus | box-shadow / background-color | 180 / 220ms | ease |
-| CTA focus | background, color, box-shadow, transform | 180ms | ease |
-| CTA press (OK) | `scale(.96)` then back | 120–140ms | ease ◻ |
-| Episode tile press (OK) | `scale(1.04)` then back | 120ms | ease ◻ |
-| Hero collapse / expand | height, padding, opacity | 320ms | `cubic-bezier(.2,.8,.2,1)` |
-| Backdrop dim (90% → 20%) | opacity, background-image | 600ms | ease |
-| Tab row collapse (discover) | height, padding | 320ms | `cubic-bezier(.2,.8,.2,1)` |
-| Episode rail peek | margin-top | 320ms | `cubic-bezier(.2,.8,.2,1)` |
-| Section dim (100% ↔ 80%) | opacity | 220ms | ease |
-| About / Trailers pull-up | margin | 320ms | `cubic-bezier(.2,.8,.2,1)` |
-| Rail meta area | opacity, then visibility | 250ms | `cubic-bezier(.4,0,.2,1)` |
-| Loading shimmer | `translateX(-100% → 100%)` gradient | 1.6s loop | linear |
-| Hero trailer autoplay | Fades in after **5s** dwell on the hero CTAs | 1200ms | ease ◻ |
-| "Added to your list" toast | Slides in top-right, auto-hides after **3s** | — | ◻ |
-| Reminder tooltip | Gentle bob; fades after 15s or on focus to tabs | 650ms fade | ◻ |
+| Tab track slide | transform | token 1 | 250ms `cubic-bezier(.8,0,0,1)` [FE cp_tab-group__list] |
+| Tab focus fill / text | background, color | token 1 | 600ms `cubic-bezier(.33,0,.2,1)` |
+| Active-tab underline | `transform: scaleX(0→1)`, origin centre | token 1 | 600ms `cubic-bezier(.33,0,.2,1)` |
+| Numeric chip expand ("2" → "SERIES 2") | width, min-width, padding, bg, color | token 1 | 250ms `cubic-bezier(.4,0,.2,1)` (already token 1) |
+| Sub nav chevron | `rotate(0→180deg)` when open | token 1 | 300ms |
+| Sub nav chip track / chip fill | transform, background, color, width | token 1 | 300ms `cubic-bezier(.33,0,.2,1)` |
+| Episode rail track | transform | token 1 | 500ms `cubic-bezier(.6,0,0,1)` [FE cp_tile-slider-ctv--standard] |
+| Related rail track | transform | token 1 | 330ms `cubic-bezier(.6,0,0,1)` [FE cp_tile-slider-ctv--metadata-area] |
+| Trailer rail track | transform | token 1 | 380ms |
+| Tile fade (left of view / sibling dim) | opacity | token 1 | 330ms |
+| Rail heading 50% → 100% | opacity | token 1 | 330ms |
+| Focus ring show/hide | opacity | token 1 | 160ms |
+| Tile focus | box-shadow, background-color | token 1 | 180 / 220ms |
+| CTA focus | background, color, box-shadow, transform | token 1 | 180ms |
+| About card focus / trailer tile focus | box-shadow / border-color | token 1 | 160 / 140ms |
+| Hero collapse / expand | height, padding, opacity | token 1 | 320ms |
+| Backdrop dim (90% → 20%) | opacity, background-image | token 1 | 600ms |
+| Tab row collapse (discover) | height, padding | token 1 | 320ms |
+| Episode rail peek | margin-top | token 1 | 320ms |
+| Section dim (100% ↔ 80%) | opacity | token 1 | 220ms |
+| About / Trailers pull-up | margin | token 1 | 320ms |
+| Rail meta area | opacity, then `visibility` switched after `--motion-duration-01` | token 1 | 250ms (already token 1) |
+| Guidance (top right) fade | opacity | token 1 | 320ms |
+| Hero trailer fade-in ◻ | opacity, after a **5s** dwell on the hero CTAs | token 1 | 1200ms |
+| CTA / episode press feedback (OK) ◻ | `scale(.96)` / `scale(1.04)` and back | token 1 | 120–140ms |
+| Loading shimmer | `translateX(-100% → 100%)` loop | **1.6s linear loop, kept** | — (a looping loading indicator, not a transition) |
+| "Added to your list" toast ◻ | slide in; auto-hides after **3s** | token 1 for the slide | — |
 
-Rules:
-- Animate only `transform` and `opacity` on rails (they are GPU-friendly on low-power TV chipsets). Width animation is
-  limited to the small tab chips.
-- ★ Respect `prefers-reduced-motion: reduce`: set transition durations to 0 and stop the shimmer and trailer autoplay.
+**Rules:**
+- **Use the token.** New transitions use `var(--motion-1)`. Don't hard-code durations or easings.
+- **GPU-friendly properties.** Animate only `transform` and `opacity` on rails, because they're cheap on low-power TV
+  chipsets. Width animation is limited to the small tab chips.
+- **Rail focus timing.** Rail tracks and focus rings share the same 250ms, so the focused tile and its ring arrive
+  together.
+- ★ **Reduced motion.** Respect `prefers-reduced-motion: reduce`: set `--motion-duration-01: 0ms` in a media query and
+  stop the shimmer.
 
 ---
 
@@ -510,7 +518,7 @@ on.
 >    hold no focus state of their own.
 > 4. Put the `.app` classes from §4.3 on the root, and write the layout modes (`series-focus`, `discover-focus`) in CSS
 >    only.
-> 5. Add the transitions from §5, with the exact durations and easings.
+> 5. Add the transitions from §5: every one uses motion token 1 (250ms, `cubic-bezier(0.4,0,0.2,1)`) via a CSS variable.
 > 6. Compose the page: a window `keydown` listener maps keys to `navigate()` and performs the returned effects.
 > 7. Add the §7 scenarios as props/data, then the §6 accessibility items, including the ★ recommendations.
 > Verify by screenshotting each journey in §8 at 1920×1080.
@@ -521,7 +529,7 @@ on.
 - [ ] The hero CTA label tracks the focused episode.
 - [ ] Only one of Episodes / About / Trailers is visible at a time.
 - [ ] Contrast pairs match §6.1, and no text is under 20px.
-- [ ] All motion uses the §5 timings and is disabled under `prefers-reduced-motion`.
+- [ ] Every transition uses motion token 1 (`var(--motion-1)`, 250ms `cubic-bezier(0.4,0,0.2,1)`), and motion is disabled under `prefers-reduced-motion`.
 
 ---
 

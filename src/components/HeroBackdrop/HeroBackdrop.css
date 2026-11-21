@@ -15,7 +15,7 @@
   background-position: center top;   /* align backdrop to the top of the screen */
   background-repeat: no-repeat;
   overflow: hidden;
-  transition: background-image 600ms ease, opacity 600ms ease;
+  transition: background-image var(--motion-1), opacity var(--motion-1);
   opacity: 0.9;
 }
 .hero.show { opacity: 0.9; }
@@ -35,7 +35,7 @@
   border: 0;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 1200ms ease;
+  transition: opacity var(--motion-1);
 }
 .hero-trailer.playing { opacity: 1; }
 video.hero-trailer { object-fit: cover; }
