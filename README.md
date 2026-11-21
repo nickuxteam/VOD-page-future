@@ -36,6 +36,8 @@ src/
 
 Everything is exported from `src/index.ts`. Import `src/styles/tokens.css` once at the app root.
 
+Full build spec (accessibility, animation, focus logic, scenarios, user journeys): [`docs/VOD-TABS-SPEC.md`](docs/VOD-TABS-SPEC.md).
+
 ## Prototype → component map
 
 | Prototype (index.html)                    | Component                     |
