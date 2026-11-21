@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { deriveView, initialNavState, navigate, type NavConfig, type NavKey, type NavState } from './vodNavigation';
+import { deriveView, initialNavState, navKeyFromEvent, navigate, type NavConfig, type NavKey, type NavState } from './vodNavigation';
 import { railOffsets } from '../components/EpisodeRail/EpisodeRail';
 
 const config: NavConfig = {
@@ -121,5 +121,21 @@ describe('railOffsets', () => {
     expect(railOffsets(3, 8, 504, 'breakaway-1')).toEqual({ offset: 1512, ringShift: 0 });
     expect(railOffsets(7, 8, 504, 'breakaway-1')).toEqual({ offset: 3024, ringShift: 504 });
     expect(railOffsets(7, 8, 504, 'fixed').ringShift).toBe(0);
+  });
+});
+
+describe('TV remote keys', () => {
+  it('maps platform Back keys (LG 461, Samsung 10009, Android 4) to Back', () => {
+    for (const keyCode of [461, 10009, 4]) expect(navKeyFromEvent({ key: 'Unidentified', keyCode })).toBe('Back');
+    expect(navKeyFromEvent({ key: 'GoBack', keyCode: 0 })).toBe('Back');
+    expect(navKeyFromEvent({ key: 'XF86Back', keyCode: 0 })).toBe('Back');
+  });
+  it('maps legacy arrow names and keyCodes', () => {
+    expect(navKeyFromEvent({ key: 'Left', keyCode: 0 })).toBe('ArrowLeft');
+    expect(navKeyFromEvent({ key: 'Unidentified', keyCode: 40 })).toBe('ArrowDown');
+    expect(navKeyFromEvent({ key: 'Unidentified', keyCode: 13 })).toBe('Enter');
+  });
+  it('ignores unrelated keys', () => {
+    expect(navKeyFromEvent({ key: 'a', keyCode: 65 })).toBeNull();
   });
 });

@@ -28,11 +28,12 @@ export function TrailerRail({ visible, trailers, focusedIndex, hasFocus, playing
       <div className={'trailer-rail' + (hasFocus ? ' has-focus' : '')}>
         {trailers.map((t, i) => {
           const playing = playingId === t.id;
+          const focused = hasFocus && i === focusedIndex;
           const cls = ['trailer-tile'];
-          if (hasFocus && i === focusedIndex) cls.push('focused');
+          if (focused) cls.push('focused');
           if (playing) cls.push('playing');
           return (
-            <div key={t.id} className="trailer-tile-wrap">
+            <div key={t.id} className={'trailer-tile-wrap' + (focused ? ' is-focused' : '')}>
               <div className={cls.join(' ')}>
                 <div className="trailer-tile-still" style={t.image ? { backgroundImage: `url("${t.image}")` } : undefined}>
                   <TrailerPlayBadge />

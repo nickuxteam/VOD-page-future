@@ -67,7 +67,7 @@ export interface RelatedRailProps {
 export function RelatedRail({ title, items, focusedIndex, hasFocus, dim, onItemClick }: RelatedRailProps) {
   const offset = focusedIndex * PITCH;
   return (
-    <section className={'prompt-area' + (dim ? ' dim' : '')}>
+    <section className={'prompt-area' + (dim ? ' dim' : '') + (hasFocus ? ' has-focus' : '')}>
       <div className="prompt-header">
         <div className="prompt-header-title"><span>{title}</span></div>
       </div>

@@ -1,4 +1,9 @@
-/** VOD Tabs component library — public API. Import './styles/tokens.css' once at app root. */
+/**
+ * VOD Tabs component library — public API.
+ * At the app root import, once: './styles/tokens.css', './styles/flex-gap-fallback.css'
+ * (importing this module runs the flex-gap check). Browser support: Chromium 68+.
+ */
+import './legacy/flexGap';
 export * from './types';
 export * from './navigation/vodNavigation';
 export { Stage } from './components/Stage/Stage';
@@ -12,3 +17,4 @@ export { AboutPanel } from './components/AboutPanel/AboutPanel';
 export { TrailerRail, type Trailer } from './components/TrailerRail/TrailerRail';
 export { KeyHint } from './components/KeyHint/KeyHint';
 export { VodTabsPage, type VodTabsPageProps } from './pages/VodTabsPage';
+export { supportsFlexGap, applyFlexGapFallback } from './legacy/flexGap';

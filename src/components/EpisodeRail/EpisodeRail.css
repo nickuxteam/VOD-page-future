@@ -205,7 +205,8 @@
 .episode-rail-clip-shell.has-focus .episode-tile-focus-ring { opacity: 1; }
 /* While an episode tile owns focus, its siblings dim to 90%. */
 .episode-rail-clip-shell.has-focus .episode-tile-wrap { opacity: 0.8; }
-.episode-rail-clip-shell.has-focus .episode-tile-wrap:has(.episode-tile.focused) { opacity: 1; }
+/* Prototype used :has(.episode-tile.focused) — needs Chromium 105, so EpisodeTile sets .is-focused. */
+.episode-rail-clip-shell.has-focus .episode-tile-wrap.is-focused { opacity: 1; }
 
 
 /* Code-only: "•" between length and air date in the meta line. */

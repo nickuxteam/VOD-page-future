@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import type { AccessTag, GuidanceMode } from '../../types';
 import { HeatIcon } from '../icons';
 import './HeroMeta.css';
@@ -55,10 +55,10 @@ export function MetaLine({ items }: { items: Array<string | { text: string; colo
         const text = typeof it === 'string' ? it : it.text;
         const color = typeof it === 'string' ? undefined : it.color;
         return (
-          <span key={i} style={{ display: 'contents' }}>
+          <Fragment key={i}>
             <span className="pill-bullet">•</span>
             <span className="pill-meta" style={color ? { color } : undefined}>{text}</span>
-          </span>
+          </Fragment>
         );
       })}
     </>

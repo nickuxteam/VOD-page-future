@@ -1,0 +1,61 @@
+/* Flexbox `gap` fallback for engines older than Chromium 84 (2020–2021
+   Samsung Tizen / LG webOS TVs). Active only when legacy/flexGap.ts adds
+   `no-flex-gap` to <html>; modern engines ignore every rule here.
+
+   Each flex container that uses `gap` gets the same spacing as margins on
+   all but its first child (row → margin-left, column → margin-top). Keep in
+   step with the component CSS: if you add `gap` to a flex container, add it
+   here too. Rail spacing must stay identical — the rail focus maths assume
+   the 18px / 12px / 8px pitches. */
+
+/* ---- rows ---------------------------------------------------------- */
+html.no-flex-gap .episode-rail-track > * + *,
+html.no-flex-gap .prompt-grid > * + * { margin-left: 18px; }
+
+html.no-flex-gap .trailer-rail > * + * { margin-left: var(--rail-gap); }
+
+html.no-flex-gap .series-tabs-track > * + *,
+html.no-flex-gap .vod-hero-pills > * + *,
+html.no-flex-gap .vod-hero-keywords > * + *,
+html.no-flex-gap .episode-meta > * + *,
+html.no-flex-gap .prompt-header > * + *,
+html.no-flex-gap .prompt-header-title > * + * { margin-left: 12px; }
+
+/* CTA pills: skip the absolutely positioned progress strip. */
+html.no-flex-gap .vod-cta > :not(.progress) + :not(.progress) { margin-left: var(--spacing-04); }
+
+html.no-flex-gap .series-dd-track > * + *,
+html.no-flex-gap .ep-tags > * + * { margin-left: 8px; }
+
+html.no-flex-gap .pill-access-group > * + *,
+html.no-flex-gap .episode-meta .ep-acc > * + * { margin-left: var(--spacing-02); }
+
+html.no-flex-gap .vod-hero-subtitle > * + * { margin-left: 20px; }
+
+html.no-flex-gap .strap-chip > * + *,
+html.no-flex-gap .guidance-tr > * + *,
+html.no-flex-gap .guidance-below-logo > * + * { margin-left: 10px; }
+
+html.no-flex-gap .rail-meta-row > * + * { margin-left: 18px; }
+html.no-flex-gap .rail-meta-tags > * + * { margin-left: 6.56px; }
+
+html.no-flex-gap .hint .keys > * + * { margin-left: 18px; }
+html.no-flex-gap .hint .keys > span > * + * { margin-left: 6px; }
+
+html.no-flex-gap .about-panel > * + * { margin-left: 56px; }
+
+/* EPISODES ▾ trigger: the chevron is drawn after the label with `order: 2`,
+   so the space belongs on the chevron, not on the (DOM-second) label. */
+html.no-flex-gap .series-tab.dropdown-trigger > * + * { margin-left: 0; }
+html.no-flex-gap .series-tab.dropdown-trigger .dd-chevron { margin-left: var(--spacing-05); }
+
+/* ---- columns ------------------------------------------------------- */
+html.no-flex-gap .vod-hero-desc-block > * + * { margin-top: 20px; }
+html.no-flex-gap .ab-col > * + * { margin-top: 24px; }
+html.no-flex-gap .ab-cell > * + * { margin-top: 8px; }
+html.no-flex-gap .rail-meta > * + * { margin-top: var(--spacing-02); }
+
+/* "•" separators pull in 4px each side with negative margins (12px gap −4 = 8px).
+   Reproduce that: 8px before the bullet, −4px after it (next item adds 12px). */
+html.no-flex-gap .vod-hero-pills > .pill-bullet,
+html.no-flex-gap .episode-meta > .ep-dot { margin-left: 8px; margin-right: -4px; }

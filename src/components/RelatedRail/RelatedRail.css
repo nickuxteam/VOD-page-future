@@ -135,9 +135,9 @@
 .prompt-grid-shell.has-focus .prompt-tile-focus-ring { opacity: 1; }
 /* FE behaviour: rail heading sits at 50% until its rail contains focus. */
 .prompt-header-title { opacity: 0.5; transition: opacity 330ms cubic-bezier(.6,0,0,1); }
-.prompt-area:has(.prompt-grid-shell.has-focus) .prompt-header-title { opacity: 1; }
-.cs-rail-shell:has(.cs-rail.has-focus) .cs-rail-title,
-.cast-rail-shell:has(.cast-rail.has-focus) .cs-rail-title { opacity: 1; }
+/* Was `.prompt-area:has(.prompt-grid-shell.has-focus)` in the prototype — a
+   class set by RelatedRail instead, because :has() needs Chromium 105. */
+.prompt-area.has-focus .prompt-header-title { opacity: 1; }
 .cs-rail-title { transition: opacity 330ms cubic-bezier(.6,0,0,1); }
 /* FE behaviour: tiles scrolled past the focus slot drop to 33%. */
 .grid-tile, .episode-tile-wrap { transition: opacity 330ms cubic-bezier(.6,0,0,1); }

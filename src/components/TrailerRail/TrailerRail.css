@@ -44,7 +44,8 @@
 .trailer-rail .trailer-play-badge { width: 56px; height: 56px; }
 /* Siblings dim to 80% while one trailer tile owns focus — same as episodes. */
 .trailer-rail.has-focus .trailer-tile-wrap { opacity: 0.8; }
-.trailer-rail.has-focus .trailer-tile-wrap:has(.trailer-tile.focused) { opacity: 1; }
+/* Prototype used :has(.trailer-tile.focused) — needs Chromium 105, so TrailerRail sets .is-focused. */
+.trailer-rail.has-focus .trailer-tile-wrap.is-focused { opacity: 1; }
 .trailer-tile-still {
   position: absolute;
   inset: 0;

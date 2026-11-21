@@ -16,6 +16,7 @@ npm run build   # typecheck + production build
 
 ```
 src/
+  legacy/flexGap.ts          flex-gap detection for pre-Chromium-84 TVs (adds html.no-flex-gap)
   styles/tokens.css          ITVX tokens (colour, spacing, radius, type), F37 Zagma @font-face, 1920×1080 .app
   types.ts                   Programme / Episode / RelatedProgramme / Cta data shapes
   navigation/vodNavigation.ts  Pure D-pad focus model: navigate(state, key, config) → { state, effect }
@@ -34,7 +35,12 @@ src/
   data/broadchurch.ts        demo content (the prototype's default programme)
 ```
 
-Everything is exported from `src/index.ts`. Import `src/styles/tokens.css` once at the app root.
+Everything is exported from `src/index.ts`. Import `src/styles/tokens.css` and `src/styles/flex-gap-fallback.css` once at the app root.
+
+Full build spec (accessibility, animation, focus logic, scenarios, user journeys): [`docs/VOD-TABS-SPEC.md`](docs/VOD-TABS-SPEC.md).
+
+**Browser support:** Chromium 68+, which covers every Samsung and LG TV from 2020 onwards. At the app root, import
+`src/styles/tokens.css` and `src/styles/flex-gap-fallback.css`. See [spec §11](docs/VOD-TABS-SPEC.md#11-browser-support-and-older-tvs).
 
 ## Prototype → component map
 

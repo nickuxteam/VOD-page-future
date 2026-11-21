@@ -41,7 +41,7 @@ export function EpisodeTile({ episode: ep, focused, label, className, onClick }:
   const tagCls = ep.live ? 'ep-tag live' : 'ep-tag latest';
 
   return (
-    <div className={'episode-tile-wrap' + (className ? ' ' + className : '')} onClick={onClick} style={{ cursor: onClick ? 'pointer' : undefined }}>
+    <div className={'episode-tile-wrap' + (focused ? ' is-focused' : '') + (className ? ' ' + className : '')} onClick={onClick} style={{ cursor: onClick ? 'pointer' : undefined }}>
       <div className={tileCls.join(' ')} style={ep.image ? { backgroundImage: `url("${ep.image}")` } : undefined}>
         <div className="ep-tags">
           {label && <span className="ep-tag">{label}</span>}
