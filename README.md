@@ -7,7 +7,8 @@ over 1:1 from the prototype, so the design and the code describe the same thing.
 
 ```bash
 npm install
-npm run dev     # demo page at http://localhost:5173 (arrow keys / Enter / Backspace = D-pad)
+npm run dev     # VOD page at http://localhost:5173, My ITVX at http://localhost:5173/myitv.html
+                # (arrow keys / Enter / Backspace = D-pad)
 npm test        # navigation model unit tests
 npm run build   # typecheck + production build
 ```
@@ -31,8 +32,14 @@ src/
     AboutPanel/              About section card
     TrailerRail/             Trailers tab content
     KeyHint/                 keyboard → remote hint bar
+    RailTabs/                tab row that switches the rail beneath (My ITVX)
+    ComingSoonRail/          "Coming soon on ITVX" portrait rail with countdown tags (from the prototype)
   pages/VodTabsPage.tsx      the full page composed from the above
+  pages/MyItvPage.tsx        My ITVX page (myitv.html): Continue watching | My list tabs, This week on ITVX,
+                             Recommended for you, Leaving soon, Coming soon
+  navigation/myItvNavigation.ts  My ITVX D-pad focus model
   data/broadchurch.ts        demo content (the prototype's default programme)
+  data/myitv.ts              My ITVX dummy content + generated placeholder art
 ```
 
 Everything is exported from `src/index.ts`. Import `src/styles/tokens.css` and `src/styles/flex-gap-fallback.css` once at the app root.

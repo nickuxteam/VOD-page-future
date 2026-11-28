@@ -59,3 +59,7 @@ html.no-flex-gap .rail-meta > * + * { margin-top: var(--spacing-02); }
    Reproduce that: 8px before the bullet, −4px after it (next item adds 12px). */
 html.no-flex-gap .vod-hero-pills > .pill-bullet,
 html.no-flex-gap .episode-meta > .ep-dot { margin-left: 8px; margin-right: -4px; }
+
+/* My ITVX: Coming soon rail (ComingSoonRail). */
+html.no-flex-gap .cs-rail > * + * { margin-left: 17px; }
+html.no-flex-gap .cs-tag > * + * { margin-left: 8px; }

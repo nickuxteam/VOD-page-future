@@ -15,5 +15,12 @@ export default defineConfig({
   build: {
     target: BROWSER_TARGET,
     cssTarget: BROWSER_TARGET,
+    // Two pages: the VOD page (index.html) and My ITVX (myitv.html).
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        myitv: 'myitv.html',
+      },
+    },
   },
 });

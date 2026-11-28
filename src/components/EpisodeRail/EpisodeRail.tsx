@@ -1,4 +1,7 @@
 import type { Episode } from '../../types';
+// EpisodeTile's access pills (.pill-access) are styled in HeroMeta.css; import it so the
+// rail renders correctly on pages without the hero (e.g. My ITVX).
+import '../HeroMeta/HeroMeta.css';
 import './EpisodeRail.css';
 
 /** Tile pitch: --ep-tile-w (486) + 18px gap — Figma Episode slider. */
@@ -74,13 +77,15 @@ export interface EpisodeRailProps {
   dim?: boolean;
   endMode?: RailEndMode;
   onEpisodeClick?: (index: number) => void;
+  /** Tile label; defaults to "S1:E3". */
+  labelFor?: (ep: Episode) => string;
 }
 
 /**
  * Section 2.5 — landscape episode slider. The focused tile locks to the
  * 112px content inset and the track slides under a fixed focus ring.
  */
-export function EpisodeRail({ episodes, focusedIndex, hasFocus, dim, endMode = 'breakaway-1', onEpisodeClick }: EpisodeRailProps) {
+export function EpisodeRail({ episodes, focusedIndex, hasFocus, dim, endMode = 'breakaway-1', onEpisodeClick, labelFor = (ep) => `S${ep.series}:E${ep.episode}` }: EpisodeRailProps) {
   const { offset, ringShift } = railOffsets(focusedIndex, episodes.length, PITCH, endMode);
   return (
     <section className={'episode-rail-shell' + (dim ? ' dim' : '')}>
@@ -90,10 +95,10 @@ export function EpisodeRail({ episodes, focusedIndex, hasFocus, dim, endMode = '
           <div className="episode-rail-track" style={{ transform: `translateX(${-offset}px)` }}>
             {episodes.map((ep, i) => (
               <EpisodeTile
-                key={`${ep.series}-${ep.episode}`}
+                key={`${i}-${ep.series}-${ep.episode}`}
                 episode={ep}
                 focused={hasFocus && i === focusedIndex}
-                label={`S${ep.series}:E${ep.episode}`}
+                label={labelFor(ep)}
                 className={i * PITCH < offset - 1 ? 'left-of-view' : undefined}
                 onClick={onEpisodeClick ? () => onEpisodeClick(i) : undefined}
               />

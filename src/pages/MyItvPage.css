@@ -1,0 +1,28 @@
+/* My ITVX page layout. Rails and tabs come from the VOD page components;
+   this file only stacks them and handles vertical scroll. */
+.myitv-scroll {
+  position: absolute; top: 0; left: 0; right: 0;
+  padding-top: 40px;
+  transition: transform var(--motion-1);
+  will-change: transform;
+}
+.myitv-row { position: relative; transition: transform var(--motion-1); }
+
+/* Tab row → rail: 16px, as SeriesNav → episode rail on the VOD page. */
+.myitv-row-tabs .series-tabs-shell { padding-bottom: 0; }
+/* The top rail keeps a fixed height so switching tabs doesn't move the rows below. */
+.myitv-row-top { height: 520px; }
+/* My list sits directly under the tabs: no slider title, no 56px rail gap. */
+.myitv-toprail .prompt-area { padding-top: 16px; }
+.myitv-toprail .prompt-header { display: none; }
+
+/* Rails out of focus: tile track at 80%, like the VOD page's dimmed sections. */
+.myitv-row .prompt-grid-shell:not(.has-focus) .prompt-grid,
+.myitv-row .episode-rail-clip-shell:not(.has-focus) .episode-rail-track { opacity: 0.8; transition: opacity var(--motion-1), transform var(--motion-1); }
+
+/* Leaving soon badge uses the warning accent instead of the primary accent. */
+.myitv-leaving .grid-tile-badge { background: var(--functional-warning); }
+.myitv .grid-tile-badge { white-space: nowrap; }
+
+/* Key hint sits above the rails. */
+.myitv .hint { z-index: 20; }

@@ -1,0 +1,3 @@
+/* RailTabs reuses the SeriesNav `.series-tab` styles; only the shell differs. */
+.rail-tabs .series-tab:not(.focused) { opacity: 0.75; }
+.rail-tabs .series-tab.active:not(.focused) { opacity: 1; }
