@@ -39,7 +39,8 @@ src/
                              Recommended for you, Leaving soon, Coming soon
   navigation/myItvNavigation.ts  My ITVX D-pad focus model
   data/broadchurch.ts        demo content (the prototype's default programme)
-  data/myitv.ts              My ITVX dummy content + generated placeholder art
+  data/myitv.ts              My ITVX demo content (real ITVX titles) + generated placeholder art
+  data/tmdb.ts, data/useMyItvContent.ts  TMDB artwork, overviews and episode stills for My ITVX
 ```
 
 Everything is exported from `src/index.ts`. Import `src/styles/tokens.css` and `src/styles/flex-gap-fallback.css` once at the app root.
@@ -83,6 +84,13 @@ The prototype's dev tooling and data plumbing stay in the prototype for now: the
 modal, scenario presets (`W`), TMDB lookups, hero trailer autoplay, My List persistence, the
 Upcoming / Coming soon hero, Meet the cast rail and the prompt pills. Wire artwork and copy from
 your content API through the `Programme` / `Episode` / `RelatedProgramme` props.
+
+## TMDB artwork (My ITVX)
+
+`myitv.html` loads show artwork, descriptions and Continue watching episode stills from TMDB.
+Copy `.env.example` to `.env.local` (git-ignored) and set `VITE_TMDB_API_KEY` to a TMDB v3 API key.
+Without a key the page shows generated placeholder art. The key is bundled into the client, so
+only use it for prototypes, and never commit `.env.local`.
 
 ## Fonts
 

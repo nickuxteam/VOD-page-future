@@ -5,21 +5,16 @@ import './styles/flex-gap-fallback.css';
 import './legacy/flexGap';
 import { Stage } from './components/Stage/Stage';
 import { MyItvPage } from './pages/MyItvPage';
-import { comingSoon, continueWatching, leavingSoon, myList, recommended, thisWeek } from './data/myitv';
+import { useMyItvContent } from './data/useMyItvContent';
 
-/** Entry for myitv.html — the My ITVX page, using dummy content. */
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+/** Entry for myitv.html — the My ITVX page with TMDB artwork (placeholder art without a key). */
+function MyItvApp() {
+  const content = useMyItvContent();
+  return (
     <Stage>
-      <MyItvPage
-        continueWatching={continueWatching}
-        myList={myList}
-        thisWeek={thisWeek}
-        recommended={recommended}
-        leavingSoon={leavingSoon}
-        comingSoon={comingSoon}
-        onOpen={(e) => console.info('open', e.rail, e.index)}
-      />
+      <MyItvPage {...content} onOpen={(e) => console.info('open', e.rail, e.index)} />
     </Stage>
-  </StrictMode>,
-);
+  );
+}
+
+createRoot(document.getElementById('root')!).render(<StrictMode><MyItvApp /></StrictMode>);
